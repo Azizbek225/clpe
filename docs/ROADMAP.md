@@ -26,7 +26,7 @@ qatlamlar ulangan, kengaytirish nuqtalari tayyor, qolgan ishlar shu yadro ustiga
 ## ⏭ Keyingi bosqichlar (rejada)
 
 1. Alembic migratsiyalari va RLS siyosatlari
-2. Kontent hajmi: 40 dars, 30 lab, 300 savol, 20 CTF challenge (MVP talabi) — hozir 15 dars, 6 lab, 15 savol, 5 challenge
+2. Kontent hajmi (MVP talabi: 40 dars, 30 lab, 300 savol, 20 CTF): hozir 47 dars ✅, 20 CTF ✅, 18 lab va 69 savol — qolgan 12 lab (Windows/AD, kripto, forensika) va ~230 savol
 3. VM konsoli (noVNC) Windows/Kali VM'lar uchun; VirtualBox/KVM real sinovlari; Windows 11 / Windows Server AD lablar
 4. Desktop **offline** rejim: dars/testlarni lokal keshlash, lokal Docker lablar, keyinchalik sinxronlash va konfliktlarni hal qilish
 5. Universitet Edition: fakultet/kafedra/guruhlar, guruhga topshiriq berish, rejalashtirish, guruhlararo CTF, hisobotlar (PDF/Excel)

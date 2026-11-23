@@ -1,0 +1,40 @@
+id: blue-log-analysis-001
+version: 1
+title: {uz: "SOC: web-server loglarini tahlil qilish", ru: "SOC: анализ логов веб-сервера", en: "SOC: Web server log analysis"}
+description:
+  uz: Apache access.log dan hujum izlarini toping va hodisa xronologiyasini tiklang.
+  en: Find attack traces in Apache access.log and rebuild the incident timeline.
+category: soc-blue-team
+course: linux-security
+lab_type: defensive
+difficulty: beginner
+duration_minutes: 45
+instructions:
+  uz: |
+    ```bash
+    cat /var/log/apache2/access.log
+    awk '{print $1}' /var/log/apache2/access.log | sort | uniq -c | sort -nr
+    grep -E "cmd=|upload" /var/log/apache2/access.log
+    ```
+machines:
+  - {name: web01, template: ubuntu-server, role: attacker, console: true}
+networks: [{name: lab, type: isolated}]
+topology: {reveal: full}
+tasks:
+  - id: ip
+    title: {uz: "Hujumchi IP manzili", en: "Attacker IP"}
+    points: 25
+    validation: {type: answer, answers: ["10.200.0.5"]}
+  - id: upload
+    title: {uz: "Fayl yuklash uchun ishlatilgan endpoint", en: "Endpoint used for upload"}
+    points: 25
+    validation: {type: answer, answers: ["/upload.php", "upload.php"]}
+  - id: count
+    title: {uz: "Web-shell orqali nechta buyruq bajarilgan?", en: "How many commands ran through the shell?"}
+    points: 25
+    validation: {type: answer, answers: ["2"]}
+  - id: tool
+    title: {uz: "Hujumchi ishlatgan HTTP mijoz (User-Agent nomi)", en: "HTTP client used by attacker"}
+    points: 25
+    validation: {type: answer, answers: ["curl", "curl/8.5.0"]}
+scoring: {maximum: 100, passing: 60, xp: 100}

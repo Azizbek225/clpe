@@ -1,0 +1,37 @@
+id: recon-multi-host-001
+version: 1
+title: {uz: "Korporativ tarmoq razvedkasi", ru: "Разведка корпоративной сети", en: "Corporate network recon"}
+description:
+  uz: To'rtta serverli tarmoqni to'liq xaritaga tushiring va har birining vazifasini aniqlang.
+  en: Fully map a four-server network and identify each host's role.
+category: network-security
+course: networking-fundamentals
+lab_type: offensive
+difficulty: intermediate
+duration_minutes: 120
+instructions:
+  uz: |
+    Tarmoqda bir nechta server bor: web ilovalar, eski server va Linux server.
+    Avval `-sn`, keyin `-sV` profili bilan skanerlang. Topologiya grafigida barcha hostlar paydo bo'lishi kerak.
+machines:
+  - {name: attacker, template: kali-linux, role: attacker}
+  - {name: shop, template: juice-shop, role: target, hidden: true}
+  - {name: legacy, template: metasploitable2, role: target, hidden: true}
+  - {name: app, template: dvwa, role: target, hidden: true}
+  - {name: srv, template: ubuntu-server, role: target, hidden: true}
+networks: [{name: lab, type: isolated}]
+resources: {cpu: 4, ram: 4096, max_machines: 6}
+tasks:
+  - id: hosts
+    title: {uz: "Barcha tirik hostlar", en: "All live hosts"}
+    points: 30
+    validation: {type: host_discovery}
+  - id: map
+    title: {uz: "To'liq xarita (xizmat versiyalari bilan)", en: "Full map with service versions"}
+    points: 40
+    validation: {type: scan_coverage, require_services: true}
+  - id: node
+    title: {uz: "Node.js ilova qaysi portda ishlaydi?", en: "Which port runs the Node.js app?"}
+    points: 30
+    validation: {type: answer, answers: ["3000"]}
+scoring: {maximum: 100, passing: 60, xp: 200}

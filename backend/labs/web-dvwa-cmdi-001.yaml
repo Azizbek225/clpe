@@ -1,0 +1,39 @@
+id: web-dvwa-cmdi-001
+version: 1
+title: {uz: "DVWA: Command Injection", ru: "DVWA: инъекция команд", en: "DVWA: Command Injection"}
+description:
+  uz: Ping formasidagi kiritishni tekshirmaslik orqali serverda OS buyruqlarini bajaring.
+  en: Abuse an unsanitised ping form to run OS commands on the server.
+category: web-security
+course: web-application-security
+lab_type: offensive
+difficulty: beginner
+duration_minutes: 60
+objectives:
+  - {uz: "Command injection operatorlari (; && |)", en: "Command injection operators (; && |)"}
+  - {uz: "Ilova qaysi foydalanuvchi nomidan ishlashini aniqlash", en: "Identify the service account"}
+instructions:
+  uz: |
+    DVWA → **Command Injection** (security: low). Forma `ping -c 4 <kiritish>` bajaradi.
+    1. `127.0.0.1; id` kiriting.
+    2. Isbot sifatida `127.0.0.1; touch /tmp/cmdi_proof` bajaring.
+    3. Tuzatish: kiritishni oq ro'yxat bilan tekshirish, `escapeshellarg`, shell'siz API.
+machines:
+  - {name: attacker, template: kali-linux, role: attacker}
+  - {name: dvwa, template: dvwa, role: target}
+networks: [{name: lab, type: isolated}]
+topology: {reveal: full}
+tasks:
+  - id: user
+    title: {uz: "Web server qaysi foydalanuvchi nomidan ishlaydi?", en: "Which user runs the web server?"}
+    points: 30
+    validation: {type: answer, answers: ["www-data"]}
+  - id: proof
+    title: {uz: "Isbot: /tmp/cmdi_proof", en: "Proof: /tmp/cmdi_proof"}
+    points: 50
+    validation: {type: vm_check, machine: dvwa, check: file_exists, path: /tmp/cmdi_proof}
+  - id: operator
+    title: {uz: "Birinchi buyruq muvaffaqiyatli bo'lsagina ikkinchisini bajaruvchi operator", en: "Operator that runs the 2nd command only if the 1st succeeds"}
+    points: 20
+    validation: {type: answer, answers: ["&&"]}
+scoring: {maximum: 100, passing: 60, xp: 120}

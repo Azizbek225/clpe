@@ -1,0 +1,35 @@
+id: web-dvwa-upload-001
+version: 1
+title: {uz: "DVWA: xavfsiz bo'lmagan fayl yuklash", ru: "DVWA: небезопасная загрузка файлов", en: "DVWA: Unrestricted file upload"}
+description:
+  uz: Fayl yuklash formasi orqali serverga PHP fayl joylang — Blue Team lab'idagi hujumning Red Team tomoni.
+  en: Upload a PHP file through an unrestricted upload form — the red side of the web-shell blue lab.
+category: web-security
+course: web-application-security
+lab_type: offensive
+difficulty: intermediate
+duration_minutes: 60
+instructions:
+  uz: |
+    DVWA → **File Upload** (security: low). Fayl nomi aynan `clpe.php` bo'lsin.
+    Yuklangan fayl `/hackable/uploads/` ga tushadi. Himoya: kengaytma/MIME oq ro'yxati, yuklamalarni
+    web-ildizdan tashqarida saqlash, bajarishni o'chirish.
+machines:
+  - {name: attacker, template: kali-linux, role: attacker}
+  - {name: dvwa, template: dvwa, role: target}
+networks: [{name: lab, type: isolated}]
+topology: {reveal: full}
+tasks:
+  - id: uploaded
+    title: {uz: "clpe.php serverga yuklandi", en: "clpe.php uploaded"}
+    points: 50
+    validation: {type: vm_check, machine: dvwa, check: file_exists, path: /var/www/html/hackable/uploads/clpe.php}
+  - id: dir
+    title: {uz: "Yuklamalar saqlanadigan URL yo'li", en: "Upload URL path"}
+    points: 20
+    validation: {type: answer, answers: ["/hackable/uploads/", "/hackable/uploads", "hackable/uploads"]}
+  - id: fix
+    title: {uz: "Uchta himoya chorasi", en: "Three mitigations"}
+    points: 30
+    validation: {type: manual}
+scoring: {maximum: 100, passing: 60, xp: 150}

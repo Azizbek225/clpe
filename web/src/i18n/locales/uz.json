@@ -101,6 +101,7 @@
     "events": "Hodisalar",
     "machinesTab": "Mashinalar",
     "scan": "Skanerlash",
+    "waitRunning": "Laboratoriya hali tayyorlanmoqda. Holat RUNNING bo'lgach skan qiling.",
     "scanTarget": "Nishon (IP yoki CIDR)",
     "importXml": "nmap XML import",
     "importHint": "Terminalda: nmap -oX scan.xml … so'ng cat scan.xml natijasini shu yerga qo'ying",

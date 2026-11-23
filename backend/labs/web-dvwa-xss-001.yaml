@@ -1,0 +1,35 @@
+id: web-dvwa-xss-001
+version: 1
+title: {uz: "DVWA: Cross-Site Scripting", ru: "DVWA: межсайтовый скриптинг", en: "DVWA: Cross-Site Scripting"}
+description:
+  uz: Reflected va Stored XSS ni topib, cookie o'g'irlash xavfini ko'rsating.
+  en: Find reflected and stored XSS and demonstrate cookie theft risk.
+category: web-security
+course: web-application-security
+lab_type: offensive
+difficulty: beginner
+duration_minutes: 60
+instructions:
+  uz: |
+    DVWA → **XSS (Reflected)** va **XSS (Stored)** (security: low).
+    `<script>alert(document.cookie)</script>` bilan boshlang. Brauzer sifatida hujumchi mashinadagi
+    `curl` yoki `w3m` dan foydalaning.
+machines:
+  - {name: attacker, template: kali-linux, role: attacker}
+  - {name: dvwa, template: dvwa, role: target}
+networks: [{name: lab, type: isolated}]
+topology: {reveal: full}
+tasks:
+  - id: param
+    title: {uz: "Reflected XSS sahifasidagi zaif GET parametr nomi", en: "Vulnerable GET parameter name (reflected)"}
+    points: 30
+    validation: {type: answer, answers: ["name"]}
+  - id: cookie-flag
+    title: {uz: "Cookie'ni JavaScript'dan yashiruvchi atribut", en: "Cookie attribute hiding it from JavaScript"}
+    points: 30
+    validation: {type: answer, answers: ["HttpOnly", "httponly"]}
+  - id: report
+    title: {uz: "Stored va Reflected XSS farqi va himoya (CSP, encoding)", en: "Stored vs reflected XSS and defences"}
+    points: 40
+    validation: {type: manual}
+scoring: {maximum: 100, passing: 60, xp: 120}

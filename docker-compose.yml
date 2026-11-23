@@ -27,6 +27,7 @@ services:
       NETWORKS: 1
       IMAGES: 1
       EXEC: 1
+      COMMIT: 1        # snapshot (docker commit) uchun
       POST: 1
       INFO: 1
       VOLUMES: 0

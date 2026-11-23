@@ -98,3 +98,73 @@ modules:
           type: multiple
           options: [Tarmoq segmentatsiyasi, Xodimlarni o'qitish, Bitta kuchli parol, Shifrlash]
           correct: [0, 1, 3]
+  - slug: security-practices
+    title: Xavfsizlik amaliyotlari
+    level: beginner
+    description: Autentifikatsiya, ijtimoiy injeneriya va xavfsizlik siyosatlari.
+    lessons:
+      - slug: authn-authz
+        title: Autentifikatsiya va avtorizatsiya
+        duration: 20
+        content: |
+          # Autentifikatsiya va avtorizatsiya
+
+          - **Autentifikatsiya** — "siz kimsiz?" (parol, kalit, biometriya).
+          - **Avtorizatsiya** — "sizga nima ruxsat?" (rollar, ruxsatlar — RBAC).
+          - **Audit (Accounting)** — "nima qildingiz?" (jurnallar).
+
+          ## Autentifikatsiya omillari
+          | Omil | Misol |
+          |---|---|
+          | Bilgan narsa | parol, PIN |
+          | Ega bo'lgan narsa | telefon (TOTP), apparat kalit |
+          | O'zingiz | barmoq izi, yuz |
+
+          **MFA** — kamida ikki xil omil. Parollar ochiq saqlanmaydi: **Argon2id**, bcrypt kabi sekin xesh + salt.
+
+          **Eng kam huquq tamoyili (least privilege):** foydalanuvchiga faqat ishi uchun zarur huquq beriladi.
+      - slug: social-engineering
+        title: Ijtimoiy injeneriya va fishing
+        duration: 15
+        content: |
+          # Ijtimoiy injeneriya
+
+          Hujumchi texnologiyani emas, **odamni** aldaydi.
+
+          - **Phishing** — soxta xat/sayt orqali parol yoki to'lov ma'lumotlarini olish
+          - **Spear phishing** — aniq shaxsga moslashtirilgan xat
+          - **Pretexting** — o'zini IT xodimi, bank xodimi qilib ko'rsatish
+          - **Baiting** — "tasodifan" qoldirilgan USB fleshka
+
+          ## Belgilari
+          1. Shoshilinchlik ("hisobingiz 1 soatda bloklanadi")
+          2. Yuboruvchi manzili domeni biroz boshqacha (`paypa1.com`)
+          3. Kutilmagan ilova yoki havola
+
+          Himoya: o'qitish, MFA, email filtrlash (SPF/DKIM/DMARC), shubhali xabarni xabar qilish madaniyati.
+      - slug: policies-standards
+        title: Siyosatlar va standartlar
+        duration: 15
+        content: |
+          # Xavfsizlik siyosatlari va standartlar
+
+          - **ISO/IEC 27001** — axborot xavfsizligini boshqarish tizimi (ISMS)
+          - **NIST CSF** — Identify, Protect, Detect, Respond, Recover
+          - **CIS Controls** — amaliy himoya choralari ro'yxati
+          - **OWASP** — web ilovalar xavfsizligi bo'yicha ochiq loyihalar
+
+          Tashkilotda kamida: parol siyosati, kirish nazorati, zaxira nusxa, hodisaga javob berish rejasi bo'lishi kerak.
+    quiz:
+      title: Xavfsizlik amaliyotlari testi
+      passing_score: 70
+      questions:
+        - {q: "Avtorizatsiya qaysi savolga javob beradi?", options: ["Siz kimsiz?", "Sizga nima ruxsat?", "Qachon kirdingiz?", "Qayerdan kirdingiz?"], correct: [1]}
+        - {q: "TOTP ilovasi qaysi omilga kiradi?", options: [Bilgan narsa, Ega bo'lgan narsa, Biometriya, Joylashuv], correct: [1]}
+        - {q: "Parollarni saqlash uchun eng to'g'ri usul", options: ["Ochiq matn", "Base64", "MD5", "Argon2id + salt"], correct: [3]}
+        - {q: "Eng kam huquq tamoyili nimani anglatadi?", options: ["Barchaga admin huquqi", "Faqat zarur huquqlar", "Huquqlarni yashirish", "Parolsiz kirish"], correct: [1]}
+        - {q: "Aniq bir shaxsga moslashtirilgan fishing", options: [Vishing, Spear phishing, Smishing, Baiting], correct: [1]}
+        - {q: "Fishing belgilarini tanlang", type: multiple, options: [Shoshilinchlik, Shubhali domen, Kutilmagan ilova, Rasmiy logotip borligi], correct: [0, 1, 2]}
+        - {q: "Email yuboruvchisini tekshirish texnologiyalari", type: multiple, options: [SPF, DKIM, DMARC, DHCP], correct: [0, 1, 2]}
+        - {q: "NIST CSF funksiyalaridan biri emas", options: [Identify, Protect, Attack, Recover], correct: [2]}
+        - {q: "ISMS qaysi standart bilan bog'liq?", options: ["ISO/IEC 27001", "ISO 9001", "IEEE 802.11", "RFC 793"], correct: [0]}
+        - {q: "MFA uchun nima kerak?", options: ["Ikki xil parol", "Kamida ikki xil omil", "Uzun parol", "VPN"], correct: [1]}

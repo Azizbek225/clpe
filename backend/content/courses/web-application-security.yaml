@@ -68,3 +68,76 @@ modules:
         - q: "Qaysi biri XSS turi emas?"
           options: [Stored, Reflected, DOM-based, Blind TCP]
           correct: [3]
+  - slug: injection-and-access
+    title: Inyeksiyalar va kirish nazorati
+    level: intermediate
+    description: XSS, buyruq inyeksiyasi, fayl yuklash, LFI va autentifikatsiya hujumlari.
+    lessons:
+      - slug: xss
+        title: Cross-Site Scripting (XSS)
+        duration: 25
+        content: |
+          # XSS
+
+          Hujumchining JavaScript kodi **boshqa foydalanuvchi brauzerida** bajariladi.
+
+          | Tur | Qayerda saqlanadi |
+          |---|---|
+          | Reflected | so'rov parametrida, javobda qaytadi |
+          | Stored | bazada (izoh, profil) |
+          | DOM-based | brauzerdagi JS ichida |
+
+          Himoya: chiqishni kontekstga mos **encoding**, `Content-Security-Policy`, cookie'larda `HttpOnly` va `SameSite`.
+      - slug: command-injection
+        title: Buyruq inyeksiyasi (Command Injection)
+        duration: 20
+        content: |
+          # Command Injection
+
+          ```php
+          shell_exec("ping -c 4 " . $_GET['ip']);   // ZAIF
+          ```
+          `127.0.0.1; id` → ikkinchi buyruq ham bajariladi. Operatorlar: `;`, `&&`, `||`, `|`, `` `cmd` ``, `$(cmd)`.
+
+          Himoya: shell'siz API, kiritishni oq ro'yxat (masalan faqat IP regex) bilan tekshirish.
+      - slug: file-upload-lfi
+        title: Fayl yuklash va LFI
+        duration: 20
+        content: |
+          # Xavfli fayl yuklash va Local File Inclusion
+
+          - Yuklangan `.php` fayl web-ildizda bajarilsa → **web-shell**
+          - `include($_GET['page'])` → `?page=../../../../etc/passwd`
+
+          Himoya: kengaytma va MIME oq ro'yxati, fayllarni web-ildizdan tashqarida saqlash, yo'llarni normallashtirish.
+      - slug: auth-attacks
+        title: Autentifikatsiyaga hujumlar
+        duration: 20
+        content: |
+          # Bruteforce, credential stuffing, sessiya
+
+          - **Bruteforce** — lug'at bilan parol terish (Hydra)
+          - **Credential stuffing** — boshqa saytdan sizib chiqqan parollar
+          - **Sessiyani o'g'irlash** — XSS orqali cookie
+
+          Himoya: rate limiting, hisobni vaqtincha bloklash, MFA, xavfsiz cookie atributlari.
+      - {slug: lab-xss, title: "Amaliyot: DVWA XSS", lesson_type: lab, lab: web-dvwa-xss-001, duration: 60, content: "Reflected va Stored XSS."}
+      - {slug: lab-cmdi, title: "Amaliyot: DVWA Command Injection", lesson_type: lab, lab: web-dvwa-cmdi-001, duration: 60, content: "Ping formasi orqali OS buyruqlari."}
+      - {slug: lab-upload, title: "Amaliyot: DVWA fayl yuklash", lesson_type: lab, lab: web-dvwa-upload-001, duration: 60, content: "PHP faylni serverga joylash."}
+      - {slug: lab-lfi, title: "Amaliyot: DVWA LFI", lesson_type: lab, lab: web-dvwa-lfi-001, duration: 45, content: "Serverdagi fayllarni o'qish."}
+      - {slug: lab-brute, title: "Amaliyot: DVWA bruteforce", lesson_type: lab, lab: web-dvwa-bruteforce-001, duration: 60, content: "Login formasiga lug'at hujumi."}
+      - {slug: lab-juice-sqli, title: "Amaliyot: Juice Shop SQLi login", lesson_type: lab, lab: web-juiceshop-sqli-001, duration: 90, content: "Autentifikatsiyani chetlab o'tish."}
+    quiz:
+      title: Inyeksiyalar testi
+      passing_score: 70
+      questions:
+        - {q: "Bazada saqlanadigan XSS turi", options: [Reflected, Stored, DOM-based, Blind SQL], correct: [1]}
+        - {q: "Cookie'ni JavaScript'dan yashiruvchi atribut", options: [Secure, HttpOnly, Path, Domain], correct: [1]}
+        - {q: "XSS'ga qarshi brauzer darajasidagi siyosat", options: [CORS, CSP, HSTS, SPF], correct: [1]}
+        - {q: "Buyruq inyeksiyasi operatorlari", type: multiple, options: [";", "&&", "|", "#"], correct: [0, 1, 2]}
+        - {q: "LFI hujumida ishlatiladigan ketma-ketlik", options: ["../", "<script>", "' OR 1=1", "%00"], correct: [0]}
+        - {q: "Yuklangan fayllarni qayerda saqlash xavfsizroq?", options: ["Web-ildizda", "Web-ildizdan tashqarida", "/tmp da", "Bazada base64"], correct: [1]}
+        - {q: "Boshqa saytdan sizgan parollar bilan kirish", options: [Bruteforce, Credential stuffing, Phishing, CSRF], correct: [1]}
+        - {q: "Bruteforce'ga qarshi choralar", type: multiple, options: [Rate limiting, MFA, Hisobni vaqtincha bloklash, HTTP ishlatish], correct: [0, 1, 2]}
+        - {q: "Command injection'ning eng yaxshi himoyasi", options: ["Shell'siz API va oq ro'yxat", "Kiritishni base64 qilish", "Faqat POST ishlatish", "Captcha"], correct: [0]}
+        - {q: "Juice Shop login so'rovida autentifikatsiyani chetlab o'tgan payload turi", options: [XSS, SQL injection, SSRF, XXE], correct: [1]}

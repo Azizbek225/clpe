@@ -88,12 +88,15 @@ def seed_all(db: Session) -> None:
 
     ctf = yaml.safe_load((s.content_dir / "ctf.yaml").read_text(encoding="utf-8"))
     for ev in ctf.get("events", []):
-        if db.scalar(select(CtfEvent).where(CtfEvent.slug == ev["slug"])):
-            continue
-        e = CtfEvent(slug=ev["slug"], title=ev["title"], description=ev.get("description", ""))
-        db.add(e)
-        db.flush()
+        e = db.scalar(select(CtfEvent).where(CtfEvent.slug == ev["slug"]))
+        if not e:
+            e = CtfEvent(slug=ev["slug"], title=ev["title"], description=ev.get("description", ""))
+            db.add(e)
+            db.flush()
+        have = {c.title for c in e.challenges}
         for ch in ev.get("challenges", []):
+            if ch["title"] in have:
+                continue  # yangi challenge'lar mavjud bazaga ham qo'shiladi
             db.add(CtfChallenge(event_id=e.id, title=ch["title"], description=ch.get("description", ""),
                                 category=ch["category"], difficulty=ch.get("difficulty", "easy"),
                                 points=ch.get("points", 100), flag_hash=hash_flag(ch["flag"]),

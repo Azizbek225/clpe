@@ -101,6 +101,7 @@
     "events": "События",
     "machinesTab": "Машины",
     "scan": "Сканировать",
+    "waitRunning": "Лаборатория ещё запускается. Сканируйте, когда статус станет RUNNING.",
     "scanTarget": "Цель (IP или CIDR)",
     "importXml": "Импорт nmap XML",
     "importHint": "В терминале: nmap -oX scan.xml …, затем вставьте содержимое",
