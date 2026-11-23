@@ -101,6 +101,7 @@
     "events": "Events",
     "machinesTab": "Machines",
     "scan": "Scan",
+    "waitRunning": "The lab is still starting. Scan once the status is RUNNING.",
     "scanTarget": "Target (IP or CIDR)",
     "importXml": "Import nmap XML",
     "importHint": "In terminal: nmap -oX scan.xml … then paste its content",

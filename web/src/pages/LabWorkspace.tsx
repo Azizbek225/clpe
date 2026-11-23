@@ -245,6 +245,7 @@ function TopologyPanel({ slug, lab, topo, setTopo }: { slug: string; lab: LabDet
   const [target, setTarget] = useState(defaultTarget);
   const [profile, setProfile] = useState("services");
   const [scanning, setScanning] = useState(false);
+  const running = lab.instance?.status === "RUNNING";
   const [xml, setXml] = useState("");
   const [showImport, setShowImport] = useState(false);
 
@@ -285,11 +286,12 @@ function TopologyPanel({ slug, lab, topo, setTopo }: { slug: string; lab: LabDet
             {lab.scan_profiles.map((p) => <option key={p}>{p}</option>)}
           </select>
         </div>
-        <button className="btn-primary" disabled={scanning || !target} onClick={scan}>
+        <button className="btn-primary" disabled={scanning || !target || !running} onClick={scan} title={running ? undefined : t("labs.waitRunning")}>
           <Radar size={15} className={scanning ? "animate-spin" : ""} /> {t("labs.scan")}
         </button>
         <button className="btn-ghost" onClick={() => setShowImport((x) => !x)}><Upload size={15} /> XML</button>
       </div>
+      {!running && <div className="text-xs text-warn font-mono">{t("labs.waitRunning")}</div>}
       {showImport && (
         <div className="space-y-2">
           <div className="text-xs text-muted font-mono">{t("labs.importHint")}</div>

@@ -52,7 +52,18 @@ class DockerProvider(VirtualizationProvider):
         try:
             img = self.client.images.get(image)
         except self._docker.errors.ImageNotFound:
-            img = self.client.images.pull(image)
+            if image.startswith("clpe/"):
+                # CLPE'ning o'z obrazlari Docker Hub'da yo'q — ular lokal quriladi.
+                folder = image.split("/", 1)[1].split(":", 1)[0]
+                raise ProviderError(
+                    f"'{image}' obrazi topilmadi. Uni bir marta quring: "
+                    f"docker build -t {image} docker/images/{folder}") from None
+            try:
+                img = self.client.images.pull(image)
+            except self._docker.errors.APIError as e:
+                raise ProviderError(
+                    f"'{image}' obrazini yuklab bo'lmadi (Docker internetga chiqa olmayapti yoki obraz yo'q): "
+                    f"{e.explanation or e}") from None
         if checksum:
             digests = {img.id, *[d.split("@", 1)[-1] for d in img.attrs.get("RepoDigests", [])]}
             if checksum not in digests:
