@@ -128,7 +128,10 @@ class DockerProvider(VirtualizationProvider):
         c = self._get(vm_id)
         repo = f"clpe-snapshot/{c.name}"
         tag = safe_id(name).lower()
-        c.commit(repository=repo, tag=tag, conf={"Labels": {LABEL: "1"}})
+        try:
+            c.commit(repository=repo, tag=tag, conf={"Labels": {LABEL: "1"}})
+        except self._docker.errors.APIError as e:
+            raise ProviderError(f"Snapshot olinmadi (docker-proxy'da COMMIT=1 yoqilganmi?): {e.explanation or e}") from None
         return f"{repo}:{tag}"
 
     def restore_snapshot(self, vm_id: str, snapshot_id: str) -> str:
