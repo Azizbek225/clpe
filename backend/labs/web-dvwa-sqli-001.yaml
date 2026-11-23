@@ -1,0 +1,52 @@
+id: web-dvwa-sqli-001
+version: 1
+title:
+  uz: "DVWA: SQL Injection"
+  ru: "DVWA: SQL-инъекция"
+  en: "DVWA: SQL Injection"
+description:
+  uz: Zaif web ilovada SQL Injection orqali foydalanuvchilar bazasini o'qing.
+  en: Use SQL injection against a vulnerable web app to dump the users table.
+category: web-security
+course: web-application-security
+lab_type: offensive
+difficulty: beginner
+duration_minutes: 90
+objectives:
+  - {uz: "Web serverni aniqlash", en: "Identify the web server"}
+  - {uz: "UNION-based SQLi", en: "UNION-based SQLi"}
+  - {uz: "Parol xeshini sindirish", en: "Crack a password hash"}
+instructions:
+  uz: |
+    DVWA `http://<dvwa-ip>/` manzilida ishlaydi (login: `admin` / `password`, avval **Create / Reset Database** bosing).
+    Security level: **low**. Hujumchi mashinadan `curl`, `sqlmap` yoki `w3m` dan foydalaning.
+
+    > Faqat shu laboratoriya ichidagi nishonlarga hujum qiling.
+machines:
+  - {name: attacker, template: kali-linux, role: attacker}
+  - {name: dvwa, template: dvwa, role: target}
+networks:
+  - {name: lab, type: isolated, internet: false}
+topology: {reveal: full}
+resources: {cpu: 2, ram: 2048, max_machines: 2}
+tasks:
+  - id: web-port
+    title: {uz: "Web xizmat porti", en: "Web service port"}
+    points: 10
+    validation: {type: port_discovery, machine: dvwa}
+  - id: db-version
+    title: {uz: "Ma'lumotlar bazasi nomi", en: "Database name"}
+    description: {uz: "SQLi orqali joriy bazaning nomini toping (database())."}
+    points: 30
+    validation: {type: answer, answers: ["dvwa"]}
+  - id: gordonb
+    title: {uz: "gordonb parolini toping", en: "Recover gordonb's password"}
+    description: {uz: "users jadvalidagi gordonb foydalanuvchisining MD5 xeshini sindiring."}
+    points: 40
+    validation: {type: answer, answers: ["abc123"]}
+  - id: report
+    title: {uz: "Qisqa hisobot", en: "Short report"}
+    description: {uz: "Zaiflik, ta'sir va tuzatish (prepared statements) haqida 3-5 jumla yozing."}
+    points: 20
+    validation: {type: manual}
+scoring: {maximum: 100, passing: 60, xp: 150}

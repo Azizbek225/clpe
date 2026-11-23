@@ -1,0 +1,68 @@
+# CLPE — to'liq stek: PostgreSQL + Redis + API + Lab Agent (Celery) + Web.
+#   cp .env.example .env && docker compose up -d --build
+#   Web:  http://localhost:8080     API/Swagger: http://localhost:8080/api/v1 (docs: http://localhost:8000/docs)
+#
+# Xavfsizlik: Docker soketi to'g'ridan-to'g'ri ulanmaydi — faqat cheklangan docker-socket-proxy orqali
+# (konteyner/tarmoq/obraz/exec API'lari). Lab Engine host'da ixtiyoriy buyruq bajarmaydi.
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: clpe
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-clpe}
+      POSTGRES_DB: clpe
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clpe"]
+      interval: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+
+  docker-proxy:
+    image: tecnativa/docker-socket-proxy:0.3.0
+    environment:
+      CONTAINERS: 1
+      NETWORKS: 1
+      IMAGES: 1
+      EXEC: 1
+      POST: 1
+      INFO: 1
+      VOLUMES: 0
+      SWARM: 0
+      SERVICES: 0
+      SECRETS: 0
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock:ro"]
+
+  api:
+    build: ./backend
+    env_file: .env
+    environment:
+      CLPE_DATABASE_URL: postgresql+psycopg://clpe:${POSTGRES_PASSWORD:-clpe}@db/clpe
+      CLPE_REDIS_URL: redis://redis:6379/0
+      CLPE_USE_CELERY: "true"
+      DOCKER_HOST: tcp://docker-proxy:2375
+    depends_on:
+      db: {condition: service_healthy}
+      redis: {condition: service_started}
+    ports: ["8000:8000"]
+
+  lab-agent:
+    build: ./backend
+    command: celery -A app.labengine.tasks.celery_app worker -B -l info --concurrency 4
+    env_file: .env
+    environment:
+      CLPE_DATABASE_URL: postgresql+psycopg://clpe:${POSTGRES_PASSWORD:-clpe}@db/clpe
+      CLPE_REDIS_URL: redis://redis:6379/0
+      CLPE_USE_CELERY: "true"
+      DOCKER_HOST: tcp://docker-proxy:2375
+    depends_on: [api, redis]
+
+  web:
+    build: ./web
+    ports: ["8080:80"]
+    depends_on: [api]
+
+volumes:
+  pgdata:

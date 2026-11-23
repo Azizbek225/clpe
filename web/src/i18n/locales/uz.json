@@ -1,0 +1,168 @@
+{
+  "app": {
+    "tagline": "Kiberxavfsizlik o'quv va amaliyot muhiti"
+  },
+  "nav": {
+    "dashboard": "Boshqaruv paneli",
+    "courses": "Kurslar",
+    "labs": "Laboratoriyalar",
+    "ctf": "CTF",
+    "leaderboard": "Reyting",
+    "monitor": "Kuzatuv",
+    "admin": "Administrator",
+    "logout": "Chiqish",
+    "settings": "Sozlamalar"
+  },
+  "auth": {
+    "login": "Kirish",
+    "register": "Ro'yxatdan o'tish",
+    "loginField": "Login yoki email",
+    "username": "Foydalanuvchi nomi",
+    "email": "Email",
+    "password": "Parol",
+    "fullName": "To'liq ism",
+    "noAccount": "Hisobingiz yo'qmi?",
+    "haveAccount": "Hisobingiz bormi?",
+    "server": "Server manzili"
+  },
+  "common": {
+    "loading": "Yuklanmoqda…",
+    "save": "Saqlash",
+    "cancel": "Bekor qilish",
+    "delete": "O'chirish",
+    "edit": "Tahrirlash",
+    "create": "Yaratish",
+    "add": "Qo'shish",
+    "saved": "Saqlandi",
+    "open": "Ochish",
+    "back": "Orqaga",
+    "next": "Keyingi",
+    "prev": "Oldingi",
+    "search": "Qidirish",
+    "minutes": "daq",
+    "points": "ball",
+    "status": "Holat",
+    "none": "Hozircha yo'q"
+  },
+  "level": {
+    "beginner": "Boshlang'ich",
+    "intermediate": "O'rta",
+    "advanced": "Yuqori"
+  },
+  "dash": {
+    "welcome": "Xush kelibsiz",
+    "level": "Daraja",
+    "xpToNext": "keyingi darajagacha",
+    "myCourses": "Kurslardagi progress",
+    "activeLabs": "Faol laboratoriyalar",
+    "labPoints": "Lab ballari",
+    "certificates": "Sertifikatlar",
+    "continue": "Davom etish"
+  },
+  "courses": {
+    "title": "Ta'lim yo'nalishlari",
+    "modules": "modul",
+    "lessons": "dars",
+    "labs": "lab",
+    "objectives": "O'quv maqsadlari",
+    "enroll": "Kursga yozilish",
+    "enrolled": "Yozilgansiz",
+    "quiz": "Modul testi",
+    "draft": "Tez kunda"
+  },
+  "lesson": {
+    "complete": "Darsni yakunlash",
+    "completed": "Yakunlangan",
+    "openLab": "Laboratoriyani ochish"
+  },
+  "quiz": {
+    "submit": "Javoblarni yuborish",
+    "passed": "Test topshirildi!",
+    "failed": "Test topshirilmadi — qayta urinib ko'ring",
+    "retry": "Qayta topshirish",
+    "certificate": "Sertifikat berildi"
+  },
+  "labs": {
+    "title": "Virtual laboratoriyalar",
+    "subtitle": "Izolyatsiyalangan tarmoqlarda haqiqiy nishon serverlar: skanerlang, hujum qiling, himoya qiling.",
+    "machines": "mashina",
+    "tasks": "topshiriq",
+    "start": "Ishga tushirish",
+    "stop": "To'xtatish",
+    "reset": "Boshlang'ich holat",
+    "snapshot": "Snapshot",
+    "restore": "Tiklash",
+    "running": "Ishlamoqda",
+    "timeLeft": "Qolgan vaqt",
+    "instructions": "Yo'riqnoma",
+    "taskList": "Topshiriqlar",
+    "topology": "Tarmoq topologiyasi",
+    "terminal": "Terminal",
+    "events": "Hodisalar",
+    "machinesTab": "Mashinalar",
+    "scan": "Skanerlash",
+    "scanTarget": "Nishon (IP yoki CIDR)",
+    "importXml": "nmap XML import",
+    "importHint": "Terminalda: nmap -oX scan.xml … so'ng cat scan.xml natijasini shu yerga qo'ying",
+    "submit": "Tekshirish",
+    "answer": "Javob",
+    "ports": "Portlar (vergul bilan)",
+    "hosts": "IP manzillar (vergul bilan)",
+    "score": "Ball",
+    "notStarted": "Laboratoriya ishga tushirilmagan. Ishga tushirganingizda sizga alohida izolyatsiyalangan tarmoq ajratiladi.",
+    "isolation": "Izolyatsiya: internet yopiq, bridged taqiqlangan",
+    "noConsole": "Bu mashina uchun brauzer konsoli mavjud emas",
+    "hint": "Maslahat",
+    "legendYou": "Siz",
+    "legendTarget": "Nishon",
+    "legendUnknown": "Noma'lum",
+    "discovered": "topilgan host"
+  },
+  "ctf": {
+    "title": "CTF musobaqalari",
+    "flag": "Flag",
+    "solved": "Yechildi",
+    "solves": "yechim",
+    "correct": "To'g'ri! Ball qo'shildi",
+    "wrong": "Noto'g'ri flag"
+  },
+  "board": {
+    "title": "Reyting jadvali",
+    "global": "Umumiy (XP)",
+    "ctf": "CTF ballari"
+  },
+  "monitor": {
+    "title": "Talabalar laboratoriyalari"
+  },
+  "admin": {
+    "overview": "Umumiy ko'rinish",
+    "content": "Kontent (kurs/modul/dars)",
+    "labs": "Laboratoriya muharriri",
+    "users": "Foydalanuvchilar",
+    "engine": "Lab Engine va VM shablonlari",
+    "audit": "Audit jurnali",
+    "validate": "Tekshirish",
+    "valid": "Manifest to'g'ri",
+    "newLab": "Yangi laboratoriya",
+    "newModule": "Yangi modul",
+    "newLesson": "Yangi dars",
+    "newCourse": "Yangi kurs",
+    "exportPack": "YAML paket eksport",
+    "importPack": "YAML paket import",
+    "preview": "Ko'rinish",
+    "translations": "Tarjimalar",
+    "quizEditor": "Test muharriri",
+    "addQuestion": "Savol qo'shish",
+    "roles": "Rollar"
+  },
+  "stat": {
+    "users": "Foydalanuvchilar",
+    "active24": "Faol (24 soat)",
+    "labsActive": "Faol laboratoriyalar",
+    "vms": "Ishlayotgan VM",
+    "cpu": "CPU ajratilgan",
+    "ram": "RAM ajratilgan",
+    "labErrors": "Lab xatolari (24s)",
+    "security": "Xavfsizlik hodisalari"
+  }
+}

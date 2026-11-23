@@ -1,0 +1,70 @@
+course:
+  slug: web-application-security
+  title: Web Application Security
+  description: OWASP Top 10, SQL Injection, XSS va zamonaviy web ilovalar xavfsizligi.
+  difficulty: intermediate
+  estimated_duration: 900
+  objectives:
+    - OWASP Top 10 toifalarini bilish
+    - SQL injection va XSS'ni topish va tuzatish
+  translations:
+    ru: {title: Безопасность веб-приложений, description: "OWASP Top 10, SQL-инъекции, XSS."}
+    en: {title: Web Application Security, description: "OWASP Top 10, SQL injection, XSS."}
+modules:
+  - slug: owasp
+    title: OWASP Top 10
+    level: beginner
+    lessons:
+      - slug: owasp-top10
+        title: OWASP Top 10 sharhi
+        duration: 25
+        content: |
+          # OWASP Top 10 (2021)
+          1. Broken Access Control
+          2. Cryptographic Failures
+          3. **Injection**
+          4. Insecure Design
+          5. Security Misconfiguration
+          6. Vulnerable and Outdated Components
+          7. Identification and Authentication Failures
+          8. Software and Data Integrity Failures
+          9. Security Logging and Monitoring Failures
+          10. Server-Side Request Forgery
+      - slug: sql-injection
+        title: SQL Injection
+        duration: 30
+        content: |
+          # SQL Injection
+
+          Zaif kod:
+          ```php
+          $q = "SELECT * FROM users WHERE id = '" . $_GET['id'] . "'";
+          ```
+          Hujum: `1' UNION SELECT user, password FROM users-- -`
+
+          **Himoya:** parametrlangan so'rovlar (prepared statements), eng kam huquqli DB foydalanuvchisi, WAF.
+      - slug: lab-dvwa-sqli
+        title: "Amaliyot: DVWA SQL Injection"
+        lesson_type: lab
+        lab: web-dvwa-sqli-001
+        duration: 90
+        content: DVWA'da SQL injection orqali foydalanuvchilar jadvalini o'qing.
+      - slug: lab-juiceshop
+        title: "Amaliyot: Juice Shop razvedka"
+        lesson_type: lab
+        lab: web-juiceshop-recon-001
+        duration: 120
+        content: SPA ilovaning yashirin marshrutlari va API'larini toping.
+    quiz:
+      title: Web xavfsizlik testi
+      passing_score: 70
+      questions:
+        - q: SQL injectionning eng samarali himoyasi
+          options: [Parametrlangan so'rovlar, "Kirishni base64 qilish", "HTTPS", Captcha]
+          correct: [0]
+        - q: "OWASP Top 10 (2021) da 1-o'rin"
+          options: [Injection, Broken Access Control, XSS, SSRF]
+          correct: [1]
+        - q: "Qaysi biri XSS turi emas?"
+          options: [Stored, Reflected, DOM-based, Blind TCP]
+          correct: [3]

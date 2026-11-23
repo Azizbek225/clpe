@@ -1,0 +1,42 @@
+id: pivot-segments-001
+version: 1
+title:
+  uz: "Segmentlangan tarmoq: DMZ va ichki tarmoq"
+  ru: "Сегментированная сеть: DMZ и внутренняя сеть"
+  en: "Segmented network: DMZ and internal"
+description:
+  uz: Ikki segmentli tarmoqda xaritani quring. Ichki tarmoqqa faqat DMZ serveri orqali yetish mumkin (pivoting).
+  en: Map a two-segment network. The internal segment is reachable only via the DMZ host (pivoting).
+category: network-security
+course: networking-fundamentals
+lab_type: offensive
+difficulty: advanced
+duration_minutes: 150
+instructions:
+  uz: |
+    Siz DMZ segmentidasiz. `web01` serveri ikkala segmentga ulangan.
+    SSH (`student:student`) orqali `web01` ga kiring va u yerdan ichki tarmoqni o'rganing
+    (`ssh -D 1080` + `proxychains nmap -sT ...`). Topilgan natijani `-oX` bilan saqlab, import qiling.
+machines:
+  - {name: attacker, template: kali-linux, role: attacker, networks: [dmz]}
+  - {name: web01, template: ubuntu-server, role: target, networks: [dmz, internal]}
+  - {name: db01, template: metasploitable2, role: target, networks: [internal], hidden: true}
+networks:
+  - {name: dmz, type: isolated}
+  - {name: internal, type: internal}
+topology: {reveal: discovered}
+resources: {cpu: 3, ram: 3072}
+tasks:
+  - id: dmz-hosts
+    title: {uz: "DMZ'dagi server", en: "Server in the DMZ"}
+    points: 20
+    validation: {type: scan_coverage, machines: [web01]}
+  - id: internal-map
+    title: {uz: "Ichki tarmoq xaritasi", en: "Internal network map"}
+    description: {uz: "db01 serverini xizmat versiyalari bilan toping (import qilingan nmap XML)."}
+    points: 50
+    validation: {type: scan_coverage, machines: [db01], require_services: true}
+  - id: db-port
+    title: {uz: "Ichki MySQL porti", en: "Internal MySQL port"}
+    points: 30
+    validation: {type: answer, answers: ["3306"]}

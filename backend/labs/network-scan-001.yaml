@@ -1,0 +1,62 @@
+id: network-scan-001
+version: 1
+title:
+  uz: Tarmoqni skanerlash asoslari
+  ru: Основы сканирования сети
+  en: Network Scanning Fundamentals
+description:
+  uz: Izolyatsiyalangan tarmoqdagi tirik hostlarni toping, ochiq portlar va xizmat versiyalarini aniqlang.
+  ru: Найдите активные хосты в изолированной сети, определите открытые порты и версии сервисов.
+  en: Find live hosts in an isolated network and identify open ports and service versions.
+category: network-security
+course: networking-fundamentals
+lab_type: offensive
+difficulty: beginner
+duration_minutes: 90
+objectives:
+  - {uz: "ICMP/ARP orqali hostlarni aniqlash (nmap -sn)", en: "Host discovery with nmap -sn"}
+  - {uz: "TCP portlarni skanerlash", en: "TCP port scanning"}
+  - {uz: "Xizmat versiyasini aniqlash (-sV)", en: "Service version detection (-sV)"}
+instructions:
+  uz: |
+    ## Vazifa
+    Siz **attacker** (Kali) mashinasidasiz. Lab tarmog'i internetdan uzilgan.
+
+    1. Terminalda `ip a` bilan o'z IP manzilingiz va tarmoq (CIDR) ni toping.
+    2. `nmap -sn <CIDR>` bilan tirik hostlarni toping.
+    3. Har bir nishonni `nmap -sV <IP>` bilan skanerlang.
+    4. **Topologiya** panelida "Skanerlash" tugmasi bilan grafikni quring
+       yoki o'z natijangizni `nmap -oX scan.xml ...` bilan olib, import qiling.
+    5. Topshiriqlarga javob bering.
+machines:
+  - {name: attacker, template: kali-linux, role: attacker}
+  - {name: legacy-srv, template: metasploitable2, role: target, hidden: true}
+  - {name: web01, template: ubuntu-server, role: target, hidden: true}
+networks:
+  - {name: lab, type: isolated, internet: false}
+topology: {reveal: discovered}
+resources: {cpu: 3, ram: 3072, max_machines: 3}
+tasks:
+  - id: hosts
+    title: {uz: "Tirik hostlarni toping", en: "Find live hosts"}
+    description: {uz: "Hujumchidan tashqari barcha nishon IP manzillarini kiriting."}
+    points: 20
+    validation: {type: host_discovery}
+  - id: ports
+    title: {uz: "legacy-srv ochiq TCP portlari", en: "Open TCP ports on legacy-srv"}
+    description: {uz: "Eski serverdagi (ko'p portli host) barcha ochiq portlarni kiriting (1-10000)."}
+    points: 30
+    validation: {type: port_discovery, machine: legacy-srv, min_ratio: 0.8}
+  - id: ftp-version
+    title: {uz: "FTP server versiyasi", en: "FTP server version"}
+    description: {uz: "21-portdagi FTP dasturi versiyasi qanday? (faqat raqam, masalan 1.2.3)"}
+    hint: {uz: "nmap -sV -p21 <IP>"}
+    points: 20
+    validation: {type: answer, answers: ["2.3.4"]}
+  - id: map
+    title: {uz: "Tarmoq xaritasini quring", en: "Build the network map"}
+    description: {uz: "Topologiya grafigida barcha nishonlar xizmat versiyalari bilan ko'rinishi kerak (services profili)."}
+    points: 30
+    validation: {type: scan_coverage, require_services: true}
+scoring: {maximum: 100, passing: 60, xp: 150}
+cleanup: {snapshot_restore: true, auto_shutdown: true, destroy_on_stop: true}

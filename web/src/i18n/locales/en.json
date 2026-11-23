@@ -1,0 +1,168 @@
+{
+  "app": {
+    "tagline": "Cybersecurity Learning & Practice Environment"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "courses": "Courses",
+    "labs": "Labs",
+    "ctf": "CTF",
+    "leaderboard": "Leaderboard",
+    "monitor": "Monitor",
+    "admin": "Admin",
+    "logout": "Log out",
+    "settings": "Settings"
+  },
+  "auth": {
+    "login": "Sign in",
+    "register": "Sign up",
+    "loginField": "Username or email",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full name",
+    "noAccount": "No account?",
+    "haveAccount": "Have an account?",
+    "server": "Server URL"
+  },
+  "common": {
+    "loading": "Loading…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "add": "Add",
+    "saved": "Saved",
+    "open": "Open",
+    "back": "Back",
+    "next": "Next",
+    "prev": "Previous",
+    "search": "Search",
+    "minutes": "min",
+    "points": "pts",
+    "status": "Status",
+    "none": "Nothing yet"
+  },
+  "level": {
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced"
+  },
+  "dash": {
+    "welcome": "Welcome",
+    "level": "Level",
+    "xpToNext": "to next level",
+    "myCourses": "Course progress",
+    "activeLabs": "Active labs",
+    "labPoints": "Lab points",
+    "certificates": "Certificates",
+    "continue": "Continue"
+  },
+  "courses": {
+    "title": "Learning tracks",
+    "modules": "modules",
+    "lessons": "lessons",
+    "labs": "labs",
+    "objectives": "Learning objectives",
+    "enroll": "Enroll",
+    "enrolled": "Enrolled",
+    "quiz": "Module quiz",
+    "draft": "Coming soon"
+  },
+  "lesson": {
+    "complete": "Mark complete",
+    "completed": "Completed",
+    "openLab": "Open lab"
+  },
+  "quiz": {
+    "submit": "Submit answers",
+    "passed": "Quiz passed!",
+    "failed": "Not passed — try again",
+    "retry": "Retry",
+    "certificate": "Certificate issued"
+  },
+  "labs": {
+    "title": "Virtual labs",
+    "subtitle": "Real targets in isolated networks: scan, attack, defend.",
+    "machines": "machines",
+    "tasks": "tasks",
+    "start": "Start lab",
+    "stop": "Stop",
+    "reset": "Reset",
+    "snapshot": "Snapshot",
+    "restore": "Restore",
+    "running": "Running",
+    "timeLeft": "Time left",
+    "instructions": "Instructions",
+    "taskList": "Tasks",
+    "topology": "Network topology",
+    "terminal": "Terminal",
+    "events": "Events",
+    "machinesTab": "Machines",
+    "scan": "Scan",
+    "scanTarget": "Target (IP or CIDR)",
+    "importXml": "Import nmap XML",
+    "importHint": "In terminal: nmap -oX scan.xml … then paste its content",
+    "submit": "Check",
+    "answer": "Answer",
+    "ports": "Ports (comma separated)",
+    "hosts": "IP addresses (comma separated)",
+    "score": "Score",
+    "notStarted": "Lab not started. Starting it gives you a private isolated network.",
+    "isolation": "Isolation: no internet, no bridged networking",
+    "noConsole": "No browser console for this machine",
+    "hint": "Hint",
+    "legendYou": "You",
+    "legendTarget": "Target",
+    "legendUnknown": "Unknown",
+    "discovered": "hosts discovered"
+  },
+  "ctf": {
+    "title": "CTF competitions",
+    "flag": "Flag",
+    "solved": "Solved",
+    "solves": "solves",
+    "correct": "Correct! Points awarded",
+    "wrong": "Wrong flag"
+  },
+  "board": {
+    "title": "Leaderboard",
+    "global": "Global (XP)",
+    "ctf": "CTF points"
+  },
+  "monitor": {
+    "title": "Student labs"
+  },
+  "admin": {
+    "overview": "Overview",
+    "content": "Content",
+    "labs": "Lab editor",
+    "users": "Users",
+    "engine": "Lab Engine & VM templates",
+    "audit": "Audit log",
+    "validate": "Validate",
+    "valid": "Manifest is valid",
+    "newLab": "New lab",
+    "newModule": "New module",
+    "newLesson": "New lesson",
+    "newCourse": "New course",
+    "exportPack": "Export YAML pack",
+    "importPack": "Import YAML pack",
+    "preview": "Preview",
+    "translations": "Translations",
+    "quizEditor": "Quiz editor",
+    "addQuestion": "Add question",
+    "roles": "Roles"
+  },
+  "stat": {
+    "users": "Users",
+    "active24": "Active (24h)",
+    "labsActive": "Active labs",
+    "vms": "Running VMs",
+    "cpu": "CPU allocated",
+    "ram": "RAM allocated",
+    "labErrors": "Lab errors (24h)",
+    "security": "Security events"
+  }
+}

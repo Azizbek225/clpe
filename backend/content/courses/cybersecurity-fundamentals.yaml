@@ -1,0 +1,100 @@
+course:
+  slug: cybersecurity-fundamentals
+  title: Cybersecurity Fundamentals
+  description: Axborot xavfsizligining asosiy tushunchalari — CIA triadasi, tahdidlar, risklar va himoya qatlamlari.
+  difficulty: beginner
+  estimated_duration: 480
+  objectives:
+    - CIA triadasini tushuntira olish
+    - Tahdid, zaiflik va risk farqini bilish
+    - Defense in depth yondashuvini qo'llash
+  translations:
+    ru: {title: Основы кибербезопасности, description: "Базовые понятия ИБ: триада CIA, угрозы, риски и уровни защиты."}
+    en: {title: Cybersecurity Fundamentals, description: "Core concepts: CIA triad, threats, risk and layered defence."}
+modules:
+  - slug: core-concepts
+    title: Asosiy tushunchalar
+    level: beginner
+    description: CIA triadasi, tahdid modellari va risk.
+    lessons:
+      - slug: cia-triad
+        title: CIA triadasi
+        duration: 15
+        content: |
+          # CIA triadasi
+
+          Axborot xavfsizligi uchta asosiy xususiyatni himoya qiladi:
+
+          | Xususiyat | Ma'nosi | Buzilish misoli |
+          |---|---|---|
+          | **Confidentiality** (maxfiylik) | Ma'lumotni faqat ruxsat berilganlar ko'radi | Bazaning sizib chiqishi |
+          | **Integrity** (yaxlitlik) | Ma'lumot ruxsatsiz o'zgartirilmaydi | Bank o'tkazmasidagi summani almashtirish |
+          | **Availability** (mavjudlik) | Tizim kerak paytda ishlaydi | DDoS hujumi |
+
+          Har bir himoya choralarini tanlashda "bu qaysi xususiyatni himoya qiladi?" deb so'rang.
+          Masalan, shifrlash — maxfiylik, xesh va raqamli imzo — yaxlitlik, zaxira nusxa — mavjudlik.
+        translations:
+          ru:
+            title: Триада CIA
+            content: |
+              # Триада CIA
+              Конфиденциальность, целостность и доступность — три свойства, которые защищает ИБ.
+          en:
+            title: The CIA triad
+            content: |
+              # The CIA triad
+              Confidentiality, integrity and availability are the three properties security protects.
+      - slug: threats-vulns-risk
+        title: Tahdid, zaiflik va risk
+        duration: 20
+        content: |
+          # Tahdid, zaiflik va risk
+
+          - **Zaiflik (vulnerability)** — tizimdagi kamchilik (masalan, yangilanmagan dastur).
+          - **Tahdid (threat)** — zaiflikdan foydalanishi mumkin bo'lgan manba (hujumchi, zararli dastur).
+          - **Risk** = ehtimollik × ta'sir.
+
+          ```text
+          Risk = Tahdid × Zaiflik × Ta'sir
+          ```
+
+          Riskni kamaytirish usullari: **qabul qilish**, **kamaytirish**, **o'tkazish** (sug'urta), **oldini olish**.
+      - slug: defense-in-depth
+        title: Ko'p qatlamli himoya
+        duration: 15
+        content: |
+          # Defense in depth
+
+          Bitta himoya vositasi hech qachon yetarli emas. Qatlamlar:
+          1. Jismoniy himoya
+          2. Tarmoq (firewall, segmentatsiya)
+          3. Xost (yangilanishlar, EDR)
+          4. Ilova (xavfsiz kod, WAF)
+          5. Ma'lumot (shifrlash, zaxira)
+          6. Odamlar (o'qitish, siyosatlar)
+      - slug: lab-webshell
+        title: "Amaliyot: web-shellni topish"
+        lesson_type: lab
+        lab: blue-webshell-001
+        duration: 60
+        content: Log tahlili orqali serverga joylashtirilgan web-shellni toping va o'chiring.
+    quiz:
+      title: Asosiy tushunchalar testi
+      passing_score: 70
+      questions:
+        - q: DDoS hujumi CIA triadasining qaysi xususiyatini buzadi?
+          options: [Maxfiylik, Yaxlitlik, Mavjudlik, Autentifikatsiya]
+          correct: [2]
+        - q: Quyidagilardan qaysi biri yaxlitlikni ta'minlaydi?
+          options: [Zaxira nusxa, Xesh funksiya, Load balancer, VPN]
+          correct: [1]
+        - q: Risk qanday hisoblanadi?
+          options: ["Ehtimollik × ta'sir", "Tahdid + zaiflik", "Aktiv narxi", "Zaifliklar soni"]
+          correct: [0]
+        - q: "Sug'urta qilish qaysi risk strategiyasiga kiradi?"
+          options: [Qabul qilish, Kamaytirish, "O'tkazish", Oldini olish]
+          correct: [2]
+        - q: Defense in depth qatlamlarini belgilang
+          type: multiple
+          options: [Tarmoq segmentatsiyasi, Xodimlarni o'qitish, Bitta kuchli parol, Shifrlash]
+          correct: [0, 1, 3]

@@ -1,0 +1,35 @@
+id: blue-webshell-001
+version: 1
+title:
+  uz: "Blue Team: veb-shellni topish va yo'q qilish"
+  ru: "Blue Team: найти и удалить веб-шелл"
+  en: "Blue Team: find and remove a web shell"
+description:
+  uz: Serverga web-shell joylashtirilgan. Loglarni tahlil qiling, uni toping va o'chiring.
+  en: A web shell was planted on the server. Analyse the logs, find it and remove it.
+category: soc-blue-team
+course: cybersecurity-fundamentals
+lab_type: defensive
+difficulty: beginner
+duration_minutes: 60
+instructions:
+  uz: |
+    Siz `web01` serverining administratorisiz (terminal sizga ochiq).
+    1. `/var/log/apache2/access.log` ni tahlil qiling (`grep -i "cmd=" ...`).
+    2. Shubhali PHP faylni toping va o'chiring.
+    3. Fayl nomini javob sifatida yuboring.
+machines:
+  - {name: web01, template: ubuntu-server, role: attacker, console: true}
+networks:
+  - {name: lab, type: isolated}
+topology: {reveal: full}
+tasks:
+  - id: name
+    title: {uz: "Web-shell fayl nomi", en: "Web shell file name"}
+    points: 40
+    validation: {type: answer, answers: ["shell.php", "/var/www/html/uploads/shell.php"]}
+  - id: removed
+    title: {uz: "Web-shell o'chirildi", en: "Web shell removed"}
+    points: 60
+    validation: {type: vm_check, machine: web01, check: file_absent, path: /var/www/html/uploads/shell.php}
+scoring: {maximum: 100, passing: 60, xp: 120}

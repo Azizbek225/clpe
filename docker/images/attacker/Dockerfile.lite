@@ -1,0 +1,9 @@
+# Yengil variant (Metasploit'siz) — tez qurish va CI uchun.
+FROM debian:bookworm-slim
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      nmap netcat-traditional curl iproute2 iputils-ping dnsutils ftp telnet openssh-client \
+      proxychains4 python3 vim-tiny less ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /root
+CMD ["sleep", "infinity"]

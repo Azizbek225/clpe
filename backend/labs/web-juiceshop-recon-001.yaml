@@ -1,0 +1,39 @@
+id: web-juiceshop-recon-001
+version: 1
+title:
+  uz: "OWASP Juice Shop: razvedka"
+  ru: "OWASP Juice Shop: разведка"
+  en: "OWASP Juice Shop: Recon"
+description:
+  uz: Zamonaviy SPA web ilovani o'rganing, yashirin sahifa va API endpointlarini toping.
+  en: Explore a modern SPA, find hidden pages and API endpoints.
+category: web-security
+course: web-application-security
+lab_type: offensive
+difficulty: intermediate
+duration_minutes: 120
+instructions:
+  uz: |
+    Juice Shop `http://<juice-shop-ip>:3000` da ishlaydi. Ilova JavaScript manbasini o'rganing
+    (`curl .../main.js | grep -o 'path:"[^"]*"'`).
+machines:
+  - {name: attacker, template: kali-linux, role: attacker}
+  - {name: shop, template: juice-shop, role: target}
+networks:
+  - {name: lab, type: isolated, internet: false}
+topology: {reveal: discovered}
+tasks:
+  - id: port
+    title: {uz: "Ilova porti", en: "App port"}
+    points: 10
+    validation: {type: port_discovery, machine: shop}
+  - id: scoreboard
+    title: {uz: "Yashirin Score Board yo'li", en: "Hidden Score Board route"}
+    description: {uz: "SPA marshrut nomini kiriting (masalan: some-page)."}
+    points: 40
+    validation: {type: answer, answers: ["score-board", "/#/score-board", "#/score-board"]}
+  - id: api
+    title: {uz: "Mahsulotlar qidiruv API", en: "Product search API"}
+    description: {uz: "Mahsulot qidiruvi qaysi REST endpointga so'rov yuboradi? (yo'l, masalan /api/x)"}
+    points: 50
+    validation: {type: answer, answers: ["/rest/products/search", "rest/products/search"]}

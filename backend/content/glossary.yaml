@@ -1,0 +1,14 @@
+# Texnik terminlar lug'ati (12-bo'lim). en -> uz / ru
+terms:
+  - {en: Vulnerability, uz: Zaiflik, ru: Уязвимость}
+  - {en: Threat, uz: Tahdid, ru: Угроза}
+  - {en: Exploit, uz: Ekspluatatsiya, ru: Эксплойт}
+  - {en: Incident Response, uz: Hodisaga javob berish, ru: Реагирование на инциденты}
+  - {en: Network Traffic, uz: Tarmoq trafigi, ru: Сетевой трафик}
+  - {en: Port Scanning, uz: Portlarni skanerlash, ru: Сканирование портов}
+  - {en: Firewall, uz: Tarmoqlararo ekran, ru: Межсетевой экран}
+  - {en: Privilege Escalation, uz: Huquqlarni oshirish, ru: Повышение привилегий}
+  - {en: Payload, uz: Foydali yuk, ru: Полезная нагрузка}
+  - {en: Reconnaissance, uz: Razvedka, ru: Разведка}
+  - {en: Lateral Movement, uz: Yon harakat, ru: Боковое перемещение}
+  - {en: Hash, uz: Xesh, ru: Хеш}

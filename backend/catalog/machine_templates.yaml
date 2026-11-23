@@ -1,0 +1,138 @@
+# VM / konteyner shablonlari katalogi.
+# Yangi OS yoki nishon server qo'shish = shu faylga yozuv qo'shish (yoki Admin > VM shablonlari).
+# image_checksum: production'da majburiy (Docker: sha256 image ID/digest; VM: disk faylining sha256).
+# meta.mock_ports — mock provayder va port_discovery tekshiruvi uchun kutilgan portlar.
+templates:
+  kali-linux:
+    name: Kali Linux (hujumchi)
+    operating_system: Kali Linux Rolling
+    image_reference: clpe/attacker:1.0        # docker/images/attacker dan quriladi
+    virtualization_provider: docker
+    role: attacker
+    default_cpu: 1.0
+    default_ram: 1024
+    meta:
+      command: ["sleep", "infinity"]
+      cap_add: [NET_RAW]
+      shell: /bin/bash
+      os: Linux 6.x (Kali)
+      mock_ports: []
+
+  ubuntu-server:
+    name: Ubuntu Server 24.04
+    operating_system: Ubuntu 24.04 LTS
+    image_reference: clpe/ubuntu-target:1.0   # docker/images/ubuntu-target
+    virtualization_provider: docker
+    role: target
+    default_cpu: 0.5
+    default_ram: 512
+    meta:
+      shell: /bin/bash
+      os: Linux 6.x (Ubuntu)
+      mock_files: [/var/www/html/uploads/shell.php]
+      mock_ports:
+        - {port: 22, service: ssh, product: OpenSSH, version: "9.6p1 Ubuntu"}
+        - {port: 80, service: http, product: Apache httpd, version: "2.4.58"}
+
+  dvwa:
+    name: DVWA (Damn Vulnerable Web App)
+    operating_system: Debian (DVWA)
+    image_reference: vulnerables/web-dvwa:latest
+    virtualization_provider: docker
+    role: target
+    default_cpu: 0.5
+    default_ram: 512
+    meta:
+      tty: false
+      os: Linux 4.x (Debian)
+      mock_ports:
+        - {port: 80, service: http, product: Apache httpd, version: "2.4.25 (Debian)"}
+
+  juice-shop:
+    name: OWASP Juice Shop
+    operating_system: Node.js (Juice Shop)
+    image_reference: bkimminich/juice-shop:latest
+    virtualization_provider: docker
+    role: target
+    default_cpu: 1.0
+    default_ram: 768
+    meta:
+      tty: false
+      os: Linux (distroless)
+      mock_ports:
+        - {port: 3000, service: http, product: Node.js Express framework, version: ""}
+
+  metasploitable2:
+    name: Metasploitable 2
+    operating_system: Ubuntu 8.04 (Metasploitable 2)
+    image_reference: tleemcjr/metasploitable2:latest
+    virtualization_provider: docker
+    role: target
+    default_cpu: 1.0
+    default_ram: 1024
+    meta:
+      command: ["sh", "-c", "/bin/services.sh && tail -f /dev/null"]
+      os: Linux 2.6.x (Ubuntu 8.04)
+      mock_ports:
+        - {port: 21, service: ftp, product: vsftpd, version: "2.3.4"}
+        - {port: 22, service: ssh, product: OpenSSH, version: "4.7p1 Debian 8ubuntu1"}
+        - {port: 23, service: telnet, product: Linux telnetd, version: ""}
+        - {port: 25, service: smtp, product: Postfix smtpd, version: ""}
+        - {port: 80, service: http, product: Apache httpd, version: "2.2.8 (Ubuntu) DAV/2"}
+        - {port: 139, service: netbios-ssn, product: Samba smbd, version: "3.X - 4.X"}
+        - {port: 445, service: netbios-ssn, product: Samba smbd, version: "3.0.20-Debian"}
+        - {port: 3306, service: mysql, product: MySQL, version: "5.0.51a-3ubuntu5"}
+        - {port: 5432, service: postgresql, product: PostgreSQL DB, version: "8.3.0 - 8.3.7"}
+        - {port: 6667, service: irc, product: UnrealIRCd, version: ""}
+
+  # ---- To'liq VM shablonlari (VirtualBox / libvirt). image_reference = bazaviy VM nomi yoki qcow2 yo'li.
+  kali-linux-vm:
+    name: Kali Linux VM
+    operating_system: Kali Linux 2025.x
+    image_reference: clpe-base-kali
+    virtualization_provider: virtualbox
+    role: attacker
+    default_cpu: 2
+    default_ram: 2048
+    meta: {os: Linux (Kali), mock_ports: []}
+
+  ubuntu-server-kvm:
+    name: Ubuntu Server (KVM)
+    operating_system: Ubuntu 24.04 LTS
+    image_reference: /var/lib/clpe/images/ubuntu-24.04.qcow2
+    virtualization_provider: libvirt
+    role: target
+    default_cpu: 1
+    default_ram: 1024
+    meta: {os: Linux (Ubuntu), mock_ports: [{port: 22, service: ssh, product: OpenSSH, version: "9.6p1"}]}
+
+  windows-11:
+    name: Windows 11 Enterprise (Evaluation)
+    operating_system: Windows 11
+    image_reference: clpe-base-win11
+    virtualization_provider: virtualbox
+    role: target
+    default_cpu: 2
+    default_ram: 4096
+    meta:
+      os: Microsoft Windows 11
+      mock_ports:
+        - {port: 135, service: msrpc, product: Microsoft Windows RPC, version: ""}
+        - {port: 445, service: microsoft-ds, product: "", version: ""}
+        - {port: 3389, service: ms-wbt-server, product: Microsoft Terminal Services, version: ""}
+
+  windows-server-eval:
+    name: Windows Server 2022 (Evaluation, AD)
+    operating_system: Windows Server 2022
+    image_reference: clpe-base-winsrv2022
+    virtualization_provider: virtualbox
+    role: target
+    default_cpu: 2
+    default_ram: 4096
+    meta:
+      os: Microsoft Windows Server 2022
+      mock_ports:
+        - {port: 53, service: domain, product: Simple DNS Plus, version: ""}
+        - {port: 88, service: kerberos-sec, product: Microsoft Windows Kerberos, version: ""}
+        - {port: 389, service: ldap, product: Microsoft Windows Active Directory LDAP, version: ""}
+        - {port: 445, service: microsoft-ds, product: "", version: ""}

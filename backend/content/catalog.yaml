@@ -1,0 +1,26 @@
+# 16 ta ta'lim yo'nalishi (spetsifikatsiya 4-bo'lim). Kontent paketi bo'lmaganlari "draft" sifatida yaratiladi
+# va Admin > Kontent bo'limidan to'ldiriladi.
+categories:
+  - {slug: fundamentals, title: Asoslar, icon: shield}
+  - {slug: systems, title: Tizimlar, icon: cpu}
+  - {slug: network, title: Tarmoq, icon: network}
+  - {slug: offensive, title: Hujum (Red Team), icon: sword}
+  - {slug: defensive, title: Himoya (Blue Team), icon: radar}
+  - {slug: advanced, title: Ilg'or yo'nalishlar, icon: brain}
+courses:
+  - {code: "01", slug: cybersecurity-fundamentals, category: fundamentals, title: Cybersecurity Fundamentals, description: Axborot xavfsizligi asoslari}
+  - {code: "02", slug: computer-systems, category: systems, title: Computer Systems, description: Kompyuter va operatsion tizimlar}
+  - {code: "03", slug: networking-fundamentals, category: network, title: Networking Fundamentals, description: Kompyuter tarmoqlari}
+  - {code: "04", slug: linux-security, category: systems, title: Linux Security, description: Linux xavfsizligi}
+  - {code: "05", slug: windows-security, category: systems, title: Windows Security, description: Windows xavfsizligi}
+  - {code: "06", slug: programming-for-security, category: fundamentals, title: Programming for Security, description: "Python, Bash, PowerShell"}
+  - {code: "07", slug: cryptography, category: fundamentals, title: Cryptography, description: Kriptografiya va PKI}
+  - {code: "08", slug: network-security, category: network, title: Network Security, description: Tarmoq himoyasi}
+  - {code: "09", slug: web-application-security, category: offensive, title: Web Application Security, description: Web va API xavfsizligi}
+  - {code: "10", slug: ethical-hacking, category: offensive, title: Ethical Hacking, description: Pentest va Red Team}
+  - {code: "11", slug: vulnerability-management, category: defensive, title: Vulnerability Management, description: Zaifliklarni boshqarish}
+  - {code: "12", slug: malware-analysis, category: defensive, title: Malware Analysis, description: Zararli dasturlar tahlili}
+  - {code: "13", slug: digital-forensics, category: defensive, title: Digital Forensics, description: Raqamli kriminalistika}
+  - {code: "14", slug: soc-blue-team, category: defensive, title: "SOC & Blue Team", description: Monitoring va hodisalarga javob}
+  - {code: "15", slug: cloud-security, category: advanced, title: Cloud Security, description: Bulutli infratuzilma xavfsizligi}
+  - {code: "16", slug: advanced-cybersecurity, category: advanced, title: Advanced Cybersecurity, description: "Reverse engineering, OSINT, AI Security"}

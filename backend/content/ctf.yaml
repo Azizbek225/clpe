@@ -1,0 +1,15 @@
+events:
+  - slug: clpe-warmup
+    title: CLPE Warm-up CTF
+    description: Boshlang'ich darajadagi mashq musobaqasi. Flag formati CLPE{...}
+    challenges:
+      - {title: "Base64 sirlari", category: crypto, difficulty: easy, points: 50,
+         description: "Q0xQRXtiNDUzXzY0X2lzX25vdF9lbmNyeXB0aW9ufQ== ni dekodlang.", flag: "CLPE{b453_64_is_not_encryption}"}
+      - {title: "ROT13", category: crypto, difficulty: easy, points: 50,
+         description: "PYCR{ebg13_vf_whfg_n_fuvsg}", flag: "CLPE{rot13_is_just_a_shift}"}
+      - {title: "Xesh", category: crypto, difficulty: easy, points: 100,
+         description: "5f4dcc3b5aa765d61d8327deb882cf99 — bu MD5 qaysi parolga tegishli? Flag: CLPE{parol}", flag: "CLPE{password}"}
+      - {title: "Port ovchisi", category: network, difficulty: medium, points: 150, lab_slug: network-scan-001,
+         description: "network-scan-001 laboratoriyasidagi eski serverda IRC xizmati qaysi portda? Flag: CLPE{port}", flag: "CLPE{6667}"}
+      - {title: "Backdoor", category: pwn, difficulty: medium, points: 200, lab_slug: exploit-vsftpd-001,
+         description: "vsftpd backdoor shell qaysi foydalanuvchi nomidan ishlaydi? Flag: CLPE{user}", flag: "CLPE{root}"}

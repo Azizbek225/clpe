@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+
+html, body, #root { height: 100%; }
+body {
+  @apply bg-void text-slate-200 font-sans antialiased;
+  background-image:
+    radial-gradient(ellipse at 20% -10%, rgba(0,255,156,.08), transparent 50%),
+    radial-gradient(ellipse at 100% 0%, rgba(34,211,238,.07), transparent 45%),
+    linear-gradient(rgba(26,42,61,.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,42,61,.25) 1px, transparent 1px);
+  background-size: auto, auto, 32px 32px, 32px 32px;
+  background-attachment: fixed;
+}
+
+::selection { background: rgba(0,255,156,.3); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #05080d; }
+::-webkit-scrollbar-thumb { background: #1a2a3d; border-radius: 6px; border: 2px solid #05080d; }
+::-webkit-scrollbar-thumb:hover { background: #24405a; }
+
+@layer components {
+  .panel { @apply bg-panel/90 border border-edge rounded-xl backdrop-blur-sm; }
+  .panel-hover { @apply transition hover:border-neon/50 hover:shadow-neon; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition disabled:opacity-40 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn bg-neon/15 text-neon border border-neon/40 hover:bg-neon/25 hover:shadow-neon; }
+  .btn-cyber { @apply btn bg-cyber/10 text-cyber border border-cyber/40 hover:bg-cyber/20 hover:shadow-cyber; }
+  .btn-danger { @apply btn bg-threat/10 text-threat border border-threat/40 hover:bg-threat/20 hover:shadow-threat; }
+  .btn-ghost { @apply btn text-slate-300 border border-edge hover:border-slate-500 hover:bg-white/5; }
+  .input { @apply w-full rounded-lg bg-void/80 border border-edge px-3 py-2 text-sm text-slate-100 placeholder:text-muted/70 focus:outline-none focus:border-neon/60 focus:ring-1 focus:ring-neon/30; }
+  .label { @apply block text-xs uppercase tracking-wider text-muted mb-1.5 font-mono; }
+  .chip { @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-mono uppercase tracking-wide border; }
+  .h-title { @apply font-mono text-xl text-slate-100 tracking-tight; }
+  .glow-text { text-shadow: 0 0 12px rgba(0,255,156,.55); }
+  .tab { @apply px-3 py-2 text-sm font-mono text-muted border-b-2 border-transparent hover:text-slate-200; }
+  .tab-active { @apply text-neon border-neon; }
+}
+
+/* Markdown (dars matni) */
+.prose-cyber h1 { @apply text-2xl font-mono text-neon mb-4 mt-2; }
+.prose-cyber h2 { @apply text-xl font-mono text-cyber mt-6 mb-3; }
+.prose-cyber h3 { @apply text-lg font-semibold text-slate-100 mt-4 mb-2; }
+.prose-cyber p { @apply leading-7 text-slate-300 mb-3; }
+.prose-cyber ul { @apply list-disc pl-6 mb-3 space-y-1 text-slate-300; }
+.prose-cyber ol { @apply list-decimal pl-6 mb-3 space-y-1 text-slate-300; }
+.prose-cyber code { @apply font-mono text-[13px] text-neon bg-void/80 border border-edge rounded px-1.5 py-0.5; }
+.prose-cyber pre { @apply bg-void border border-edge rounded-lg p-4 overflow-x-auto mb-4; }
+.prose-cyber pre code { @apply border-0 p-0 bg-transparent text-slate-200; }
+.prose-cyber table { @apply w-full text-sm mb-4 border border-edge; }
+.prose-cyber th { @apply bg-panel2 text-left px-3 py-2 font-mono text-cyber border-b border-edge; }
+.prose-cyber td { @apply px-3 py-2 border-b border-edge/60 text-slate-300; }
+.prose-cyber blockquote { @apply border-l-2 border-warn bg-warn/5 pl-4 py-2 my-3 text-warn/90; }
+.prose-cyber a { @apply text-cyber underline; }
+.prose-cyber strong { @apply text-slate-100; }

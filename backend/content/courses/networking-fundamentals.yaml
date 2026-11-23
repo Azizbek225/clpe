@@ -1,0 +1,112 @@
+course:
+  slug: networking-fundamentals
+  title: Networking Fundamentals
+  description: OSI/TCP-IP modeli, IP manzillash, portlar va tarmoqni skanerlash asoslari.
+  difficulty: beginner
+  estimated_duration: 720
+  objectives:
+    - OSI va TCP/IP qatlamlarini bilish
+    - CIDR bo'yicha subnet hisoblash
+    - nmap bilan host va portlarni aniqlash
+  translations:
+    ru: {title: Основы сетей, description: "Модели OSI/TCP-IP, IP-адресация, порты и основы сканирования."}
+    en: {title: Networking Fundamentals, description: "OSI/TCP-IP, IP addressing, ports and scanning basics."}
+modules:
+  - slug: models-addressing
+    title: Modellar va manzillash
+    level: beginner
+    description: OSI, TCP/IP, IPv4 va CIDR.
+    lessons:
+      - slug: osi-tcpip
+        title: OSI va TCP/IP modellari
+        duration: 20
+        content: |
+          # OSI va TCP/IP
+
+          | OSI | TCP/IP | Misollar |
+          |---|---|---|
+          | 7 Application, 6 Presentation, 5 Session | Application | HTTP, DNS, SSH |
+          | 4 Transport | Transport | TCP, UDP |
+          | 3 Network | Internet | IP, ICMP |
+          | 2 Data Link, 1 Physical | Link | Ethernet, Wi-Fi, ARP |
+
+          Hujum va himoya vositalari ko'pincha aniq bir qatlamda ishlaydi: masalan, ARP spoofing — 2-qatlam,
+          SYN flood — 4-qatlam, SQL injection — 7-qatlam.
+      - slug: ipv4-cidr
+        title: IPv4 va CIDR
+        duration: 25
+        content: |
+          # IPv4 va CIDR
+
+          `10.200.0.0/24` — 24 bit tarmoq qismi, 8 bit host qismi → 256 manzil, 254 ta host.
+
+          ```text
+          /24 = 255.255.255.0   → 254 host
+          /16 = 255.255.0.0     → 65 534 host
+          /30 = 255.255.255.252 → 2 host
+          ```
+
+          CLPE laboratoriyalarida har bir talabaga alohida `/24` tarmoq ajratiladi.
+  - slug: scanning
+    title: Tarmoqni skanerlash
+    level: intermediate
+    description: TCP handshake, nmap skan turlari va xizmatlarni aniqlash.
+    lessons:
+      - slug: tcp-handshake
+        title: TCP handshake va port holatlari
+        duration: 20
+        content: |
+          # TCP uch bosqichli handshake
+
+          ```text
+          Client  --SYN-->      Server
+          Client  <--SYN/ACK--  Server   (port ochiq)
+          Client  <--RST--      Server   (port yopiq)
+          ```
+
+          nmap port holatlari: **open**, **closed**, **filtered** (firewall javob bermayapti).
+      - slug: nmap-basics
+        title: nmap asoslari
+        duration: 30
+        content: |
+          # nmap
+
+          ```bash
+          nmap -sn 10.200.0.0/24          # tirik hostlar
+          nmap -sS -p- 10.200.0.10        # barcha TCP portlar (SYN skan)
+          nmap -sV -sC 10.200.0.10        # xizmat versiyalari + standart skriptlar
+          nmap -oX scan.xml ...           # XML natija (CLPE topologiyasiga import qilinadi)
+          ```
+
+          > ⚠️ Skanerlash faqat ruxsat berilgan tarmoqlarda qonuniy. CLPE laboratoriyalari aynan shu uchun.
+      - slug: lab-network-scan
+        title: "Amaliyot: tarmoqni skanerlash"
+        lesson_type: lab
+        lab: network-scan-001
+        duration: 90
+        content: Izolyatsiyalangan tarmoqni skanerlang va topologiya grafigini quring.
+      - slug: lab-pivot
+        title: "Amaliyot: segmentlangan tarmoq"
+        lesson_type: lab
+        lab: pivot-segments-001
+        duration: 150
+        content: DMZ orqali ichki tarmoqni o'rganing.
+    quiz:
+      title: Skanerlash testi
+      passing_score: 70
+      questions:
+        - q: "/24 tarmoqda nechta foydalanish mumkin bo'lgan host manzili bor?"
+          options: ["256", "254", "255", "128"]
+          correct: [1]
+        - q: Port yopiq bo'lsa server SYN paketiga nima bilan javob beradi?
+          options: [SYN/ACK, RST, Hech narsa, FIN]
+          correct: [1]
+        - q: Xizmat versiyasini aniqlash uchun nmap kaliti
+          options: ["-sn", "-sV", "-Pn", "-F"]
+          correct: [1]
+        - q: SSH standart porti
+          options: ["21", "22", "23", "25"]
+          correct: [1]
+        - q: SQL injection OSI modelining qaysi qatlamiga tegishli?
+          options: [Transport, Network, Application, Data Link]
+          correct: [2]

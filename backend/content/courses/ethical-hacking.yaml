@@ -1,0 +1,52 @@
+course:
+  slug: ethical-hacking
+  title: Ethical Hacking
+  description: Pentest metodologiyasi, ekspluatatsiya va post-ekspluatatsiya. Faqat ruxsat etilgan muhitda!
+  difficulty: intermediate
+  estimated_duration: 1200
+  objectives:
+    - Pentest bosqichlarini bilish
+    - Ma'lum CVE'lardan laboratoriyada foydalanish
+    - Hisobot yozish
+  translations:
+    ru: {title: Этичный хакинг, description: "Методология пентеста и эксплуатация в разрешённой среде."}
+    en: {title: Ethical Hacking, description: "Pentest methodology and exploitation in an authorised lab."}
+modules:
+  - slug: methodology
+    title: Pentest metodologiyasi
+    level: beginner
+    lessons:
+      - slug: phases
+        title: Pentest bosqichlari
+        duration: 20
+        content: |
+          # Pentest bosqichlari
+          1. **Kelishuv va doira (scope)** — yozma ruxsatsiz test = jinoyat.
+          2. Razvedka (passiv/aktiv)
+          3. Skanerlash va zaifliklarni aniqlash
+          4. Ekspluatatsiya
+          5. Post-ekspluatatsiya (huquqlarni oshirish, pivoting)
+          6. Hisobot va tavsiyalar
+      - slug: cve-cvss
+        title: CVE va CVSS
+        duration: 20
+        content: |
+          # CVE va CVSS
+          **CVE** — ommaga ma'lum zaiflikning identifikatori (masalan `CVE-2011-2523`).
+          **CVSS** — 0.0–10.0 xavf bahosi. 9.0+ — Critical.
+      - slug: lab-vsftpd
+        title: "Amaliyot: vsftpd backdoor"
+        lesson_type: lab
+        lab: exploit-vsftpd-001
+        duration: 90
+        content: CVE-2011-2523 dan foydalanib root huquqini oling.
+    quiz:
+      title: Metodologiya testi
+      passing_score: 70
+      questions:
+        - q: Pentestni boshlashdan oldin nima majburiy?
+          options: [Yozma ruxsat va scope, Kali o'rnatish, VPN, Exploit yozish]
+          correct: [0]
+        - q: "CVSS 9.8 qaysi daraja?"
+          options: [Low, Medium, High, Critical]
+          correct: [3]
