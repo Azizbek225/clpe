@@ -1,0 +1,33 @@
+id: web-dvwa-lfi-001
+version: 1
+title: {uz: "DVWA: Local File Inclusion", ru: "DVWA: локальное включение файлов", en: "DVWA: Local File Inclusion"}
+description:
+  uz: page parametri orqali serverdagi ixtiyoriy faylni o'qing.
+  en: Read arbitrary server files through the page parameter.
+category: web-security
+course: web-application-security
+lab_type: offensive
+difficulty: beginner
+duration_minutes: 45
+instructions:
+  uz: |
+    DVWA → **File Inclusion** (security: low): `?page=../../../../../etc/passwd`
+machines:
+  - {name: attacker, template: kali-linux, role: attacker}
+  - {name: dvwa, template: dvwa, role: target}
+networks: [{name: lab, type: isolated}]
+topology: {reveal: full}
+tasks:
+  - id: param
+    title: {uz: "Zaif parametr nomi", en: "Vulnerable parameter"}
+    points: 20
+    validation: {type: answer, answers: ["page"]}
+  - id: shell
+    title: {uz: "/etc/passwd da root foydalanuvchisining shell'i", en: "root's shell in /etc/passwd"}
+    points: 40
+    validation: {type: answer, answers: ["/bin/bash"]}
+  - id: traversal
+    title: {uz: "Katalogdan yuqoriga chiqish ketma-ketligi", en: "Directory traversal sequence"}
+    points: 40
+    validation: {type: answer, answers: ["../", ".."]}
+scoring: {maximum: 100, passing: 60, xp: 100}

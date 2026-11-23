@@ -110,3 +110,80 @@ modules:
         - q: SQL injection OSI modelining qaysi qatlamiga tegishli?
           options: [Transport, Network, Application, Data Link]
           correct: [2]
+  - slug: services-defense
+    title: Xizmatlar va tarmoq himoyasi
+    level: intermediate
+    description: Mashhur portlar, DNS, firewall va xizmatlarni sanab chiqish.
+    lessons:
+      - slug: common-ports
+        title: Mashhur portlar va xizmatlar
+        duration: 20
+        content: |
+          # Mashhur portlar
+
+          | Port | Xizmat | Izoh |
+          |---|---|---|
+          | 21 | FTP | parol ochiq matnda |
+          | 22 | SSH | shifrlangan boshqaruv |
+          | 23 | Telnet | ochiq matn — ishlatmang |
+          | 25 | SMTP | pochta |
+          | 53 | DNS | UDP/TCP |
+          | 80 / 443 | HTTP / HTTPS | web |
+          | 139 / 445 | SMB | Windows/Samba fayl almashish |
+          | 3306 | MySQL | |
+          | 3389 | RDP | Windows masofaviy ish stoli |
+          | 6667 | IRC | |
+      - slug: dns
+        title: DNS qanday ishlaydi
+        duration: 20
+        content: |
+          # DNS
+
+          Domen nomini IP manzilga aylantiradi. Yozuv turlari: `A`, `AAAA`, `MX`, `CNAME`, `TXT`, `NS`.
+
+          ```bash
+          dig example.com A
+          dig -x 10.200.0.10        # teskari (PTR) so'rov
+          ```
+          Hujumlar: DNS spoofing, zone transfer (`dig axfr`), DNS tunnelling. Himoya: DNSSEC, transferni cheklash.
+      - slug: firewalls
+        title: Firewall va segmentatsiya
+        duration: 20
+        content: |
+          # Firewall
+
+          Paketlarni qoidalar asosida o'tkazadi yoki to'xtatadi. **Default deny** — ruxsat berilmagan hamma narsa taqiqlanadi.
+
+          ```bash
+          sudo ufw default deny incoming
+          sudo ufw allow 22/tcp
+          sudo ufw enable
+          ```
+          **Segmentatsiya:** DMZ (tashqariga ochiq serverlar) va ichki tarmoq ajratiladi — CLPE'dagi
+          "pivot-segments-001" laboratoriyasi aynan shunday tuzilgan.
+      - slug: lab-enum
+        title: "Amaliyot: xizmatlarni sanab chiqish"
+        lesson_type: lab
+        lab: network-enum-001
+        duration: 75
+        content: Eski serverdagi xizmat versiyalarini aniqlang.
+      - slug: lab-recon
+        title: "Amaliyot: korporativ tarmoq razvedkasi"
+        lesson_type: lab
+        lab: recon-multi-host-001
+        duration: 120
+        content: To'rt serverli tarmoqni xaritaga tushiring.
+    quiz:
+      title: Xizmatlar va himoya testi
+      passing_score: 70
+      questions:
+        - {q: "RDP standart porti", options: ["22", "445", "3389", "8080"], correct: [2]}
+        - {q: "Parolni ochiq matnda uzatadigan protokollar", type: multiple, options: [Telnet, FTP, SSH, HTTPS], correct: [0, 1]}
+        - {q: "Pochta serverini ko'rsatuvchi DNS yozuvi", options: [A, MX, CNAME, PTR], correct: [1]}
+        - {q: "IP'dan domen nomini topish", options: ["A so'rov", "PTR (teskari) so'rov", "MX so'rov", "TXT so'rov"], correct: [1]}
+        - {q: "Default deny siyosati", options: ["Hammasi ruxsat", "Faqat ruxsat berilgani o'tadi", "Faqat 80-port yopiq", "Faqat ICMP ruxsat"], correct: [1]}
+        - {q: "DMZ'ning maqsadi", options: ["Ichki serverlarni internetga ochish", "Tashqi xizmatlarni ichki tarmoqdan ajratish", "Wi-Fi tezligini oshirish", "DNS'ni tezlashtirish"], correct: [1]}
+        - {q: "SMB qaysi portlarda?", type: multiple, options: ["139", "445", "443", "25"], correct: [0, 1]}
+        - {q: "DNS zone transferni tekshirish buyrug'i", options: ["dig axfr", "nmap -sn", "ping -c", "whois"], correct: [0]}
+        - {q: "MySQL standart porti", options: ["1433", "5432", "3306", "27017"], correct: [2]}
+        - {q: "DNS ma'lumotlarini imzolash texnologiyasi", options: [DNSSEC, DHCP, SNMP, ARP], correct: [0]}

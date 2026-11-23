@@ -23,14 +23,17 @@ def test_quiz_progress_and_certificate(client):
     for m in c["modules_detail"]:
         for le in m["lessons"]:
             client.post(f"/api/v1/lessons/{le['id']}/complete", headers=h)
-    qid = c["modules_detail"][0]["quiz"]["id"]
-    quiz = client.post(f"/api/v1/quizzes/{qid}/start", headers=h).json()
-    wrong = {q["id"]: [q["options"][-1]["id"]] for q in quiz["questions"]}
-    r = client.post(f"/api/v1/quizzes/{qid}/submit", json={"answers": wrong}, headers=h).json()
-    assert not r["passed"]
-    right = {x["question_id"]: x["correct_options"] for x in r["review"]}
-    r = client.post(f"/api/v1/quizzes/{qid}/submit", json={"answers": right}, headers=h).json()
-    assert r["passed"] and r["certificate"]
+    qids = [m["quiz"]["id"] for m in c["modules_detail"] if m["quiz"]]
+    for n, qid in enumerate(qids):
+        quiz = client.post(f"/api/v1/quizzes/{qid}/start", headers=h).json()
+        wrong = {q["id"]: [q["options"][-1]["id"]] for q in quiz["questions"]}
+        r = client.post(f"/api/v1/quizzes/{qid}/submit", json={"answers": wrong}, headers=h).json()
+        assert not r["passed"]
+        right = {x["question_id"]: x["correct_options"] for x in r["review"]}
+        r = client.post(f"/api/v1/quizzes/{qid}/submit", json={"answers": right}, headers=h).json()
+        assert r["passed"]
+        # sertifikat faqat barcha testlar topshirilgandan keyin beriladi
+        assert bool(r["certificate"]) == (n == len(qids) - 1)
     code = r["certificate"]["verification_code"]
     assert client.get(f"/api/v1/certificates/verify/{code}").json()["valid"]
     me = client.get("/api/v1/progress", headers=h).json()

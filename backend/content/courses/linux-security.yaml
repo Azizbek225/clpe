@@ -1,0 +1,119 @@
+course:
+  slug: linux-security
+  title: Linux Security
+  description: Linux tizimini boshqarish, huquqlar, SSH xavfsizligi va loglarni tahlil qilish.
+  difficulty: beginner
+  estimated_duration: 600
+  objectives:
+    - Linux fayl huquqlarini o'qish va o'rnatish
+    - SSH serverni xavfsiz sozlash
+    - Loglardan hujum izlarini topish
+  translations:
+    ru: {title: Безопасность Linux, description: "Права, SSH, журналы и защита Linux."}
+    en: {title: Linux Security, description: "Permissions, SSH hardening and log analysis."}
+modules:
+  - slug: linux-basics
+    title: Linux asoslari va huquqlar
+    level: beginner
+    lessons:
+      - slug: filesystem
+        title: Fayl tizimi va asosiy buyruqlar
+        duration: 20
+        content: |
+          # Linux fayl tizimi
+
+          | Katalog | Vazifasi |
+          |---|---|
+          | `/etc` | konfiguratsiya |
+          | `/var/log` | loglar |
+          | `/home` | foydalanuvchilar |
+          | `/tmp` | vaqtinchalik (hamma yoza oladi) |
+          | `/root` | root uy katalogi |
+
+          ```bash
+          pwd; ls -la; cd /etc; cat passwd; grep student /etc/passwd; find / -name "*.conf" 2>/dev/null
+          ```
+      - slug: permissions
+        title: Fayl huquqlari, SUID va sudo
+        duration: 25
+        content: |
+          # Huquqlar
+
+          `-rwxr-x---` → egasi: rwx, guruh: r-x, boshqalar: ---. Raqamda: `chmod 750 fayl`.
+
+          - **SUID** (`chmod u+s`) — fayl egasining huquqi bilan ishlaydi (`/usr/bin/passwd`)
+          - **sudo** — `/etc/sudoers` bo'yicha boshqa foydalanuvchi nomidan buyruq
+          - `sudo -l` — sizga ruxsat etilgan buyruqlar (privilege escalation uchun birinchi qadam)
+      - slug: users-processes
+        title: Foydalanuvchilar, jarayonlar va xizmatlar
+        duration: 20
+        content: |
+          # Jarayonlar va xizmatlar
+
+          ```bash
+          id; whoami; last; w
+          ps aux | grep apache
+          ss -tulpn                  # tinglayotgan portlar
+          systemctl status ssh
+          ```
+          Keraksiz xizmatlarni o'chirish — hujum yuzasini kamaytirishning eng oddiy usuli.
+    quiz:
+      title: Linux asoslari testi
+      passing_score: 70
+      questions:
+        - {q: "Loglar odatda qaysi katalogda?", options: ["/etc", "/var/log", "/bin", "/opt"], correct: [1]}
+        - {q: "chmod 750 nimani anglatadi?", options: ["rwxr-x---", "rwxrwxrwx", "rw-r-----", "r-xr-x---"], correct: [0]}
+        - {q: "Sizga ruxsat etilgan sudo buyruqlarini ko'rish", options: ["sudo -l", "sudo su", "id", "whoami"], correct: [0]}
+        - {q: "Tinglayotgan portlarni ko'rsatuvchi buyruq", options: ["ss -tulpn", "ls -la", "df -h", "uname -a"], correct: [0]}
+        - {q: "SUID bit nima qiladi?", options: ["Faylni yashiradi", "Fayl egasi huquqi bilan ishga tushiradi", "Faylni shifrlaydi", "Faylni o'chirib bo'lmas qiladi"], correct: [1]}
+        - {q: "Hamma yoza oladigan vaqtinchalik katalog", options: ["/tmp", "/root", "/etc", "/boot"], correct: [0]}
+        - {q: "Foydalanuvchi hisoblari ro'yxati saqlanadigan fayl", options: ["/etc/passwd", "/etc/hosts", "/etc/fstab", "/etc/issue"], correct: [0]}
+        - {q: "Hujum yuzasini kamaytirish usullari", type: multiple, options: [Keraksiz xizmatlarni o'chirish, Yangilanishlar, Firewall, "Hamma fayllarga 777"], correct: [0, 1, 2]}
+  - slug: hardening-logs
+    title: SSH xavfsizligi va loglar
+    level: intermediate
+    lessons:
+      - slug: ssh-hardening
+        title: SSH serverni xavfsiz sozlash
+        duration: 25
+        content: |
+          # SSH hardening (`/etc/ssh/sshd_config`)
+
+          ```text
+          PermitRootLogin no
+          PasswordAuthentication no      # faqat kalit bilan
+          MaxAuthTries 3
+          AllowUsers admin
+          ```
+          ```bash
+          ssh-keygen -t ed25519 && ssh-copy-id user@server
+          sudo systemctl restart ssh
+          ```
+          Qo'shimcha: `fail2ban` — ko'p marta xato urinishdan keyin IP'ni bloklaydi.
+      - slug: log-analysis
+        title: Loglarni tahlil qilish
+        duration: 25
+        content: |
+          # Log tahlili
+
+          ```bash
+          grep "Failed password" /var/log/auth.log | awk '{print $(NF-3)}' | sort | uniq -c | sort -nr
+          awk '{print $1}' /var/log/apache2/access.log | sort | uniq -c | sort -nr | head
+          grep -E "(cmd=|\.\./|union select)" -i /var/log/apache2/access.log
+          journalctl -u ssh --since "1 hour ago"
+          ```
+          Topilmalarni **vaqt chizig'i** (timeline) ko'rinishida yozing: qachon, kim (IP), nima qildi.
+      - {slug: lab-ssh, title: "Amaliyot: SSH zaif parol", lesson_type: lab, lab: linux-ssh-bruteforce-001, duration: 60, content: "SSH ga lug'at hujumi va himoya."}
+      - {slug: lab-logs, title: "Amaliyot: web-server loglari", lesson_type: lab, lab: blue-log-analysis-001, duration: 45, content: "access.log dan hujum xronologiyasini tiklash."}
+    quiz:
+      title: SSH va loglar testi
+      passing_score: 70
+      questions:
+        - {q: "Root sifatida SSH bilan kirishni taqiqlash", options: ["PermitRootLogin no", "RootLogin off", "DenyRoot yes", "AllowRoot false"], correct: [0]}
+        - {q: "Faqat kalit bilan kirishni majburlash", options: ["PasswordAuthentication no", "PubkeyAuthentication no", "UsePAM no", "X11Forwarding no"], correct: [0]}
+        - {q: "Ko'p urinishdan keyin IP'ni bloklovchi vosita", options: [fail2ban, nmap, hydra, netcat], correct: [0]}
+        - {q: "Tavsiya etiladigan zamonaviy SSH kalit turi", options: [ed25519, dsa, rsa-1024, des], correct: [0]}
+        - {q: "SSH muvaffaqiyatsiz urinishlari yoziladigan log (Debian/Ubuntu)", options: ["/var/log/auth.log", "/var/log/dpkg.log", "/var/log/boot.log", "/var/log/apt/history.log"], correct: [0]}
+        - {q: "access.log'da har bir qatorning birinchi maydoni", options: ["Mijoz IP manzili", "Vaqt", "URL", "Status kodi"], correct: [0]}
+        - {q: "Hodisa xronologiyasi uchun qaysi ma'lumotlar kerak?", type: multiple, options: [Vaqt, IP, Harakat, Serverning rangi], correct: [0, 1, 2]}
+        - {q: "systemd xizmati loglarini ko'rish", options: [journalctl, dmesg, lsof, top], correct: [0]}

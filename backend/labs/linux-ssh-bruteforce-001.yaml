@@ -1,0 +1,39 @@
+id: linux-ssh-bruteforce-001
+version: 1
+title: {uz: "Linux: SSH zaif parol", ru: "Linux: слабый пароль SSH", en: "Linux: Weak SSH password"}
+description:
+  uz: SSH xizmatiga lug'at hujumi qiling, kiring va serverni o'rganing.
+  en: Dictionary-attack SSH, log in and explore the server.
+category: linux-security
+course: linux-security
+lab_type: offensive
+difficulty: beginner
+duration_minutes: 60
+instructions:
+  uz: |
+    1. Serverni toping va 22-port ochiqligini tekshiring.
+    2. `hydra -l student -P /usr/share/wordlists/fasttrack.txt ssh://<ip>`
+    3. `ssh student@<ip>` bilan kiring va `touch /tmp/ssh_proof` bajaring.
+    Himoya: kalit bilan autentifikatsiya, `PasswordAuthentication no`, fail2ban.
+machines:
+  - {name: attacker, template: kali-linux, role: attacker}
+  - {name: srv, template: ubuntu-server, role: target, hidden: true}
+networks: [{name: lab, type: isolated}]
+tasks:
+  - id: host
+    title: {uz: "Serverni toping", en: "Find the server"}
+    points: 10
+    validation: {type: host_discovery}
+  - id: pass
+    title: {uz: "student foydalanuvchisi paroli", en: "Password of user student"}
+    points: 40
+    validation: {type: answer, answers: ["student"]}
+  - id: proof
+    title: {uz: "Kirish isboti /tmp/ssh_proof", en: "Login proof /tmp/ssh_proof"}
+    points: 30
+    validation: {type: vm_check, machine: srv, check: file_exists, path: /tmp/ssh_proof}
+  - id: sshd
+    title: {uz: "Parol bilan kirishni o'chiruvchi sshd_config direktivasi", en: "sshd_config directive disabling password logins"}
+    points: 20
+    validation: {type: answer, answers: ["PasswordAuthentication no", "PasswordAuthentication"]}
+scoring: {maximum: 100, passing: 60, xp: 120}

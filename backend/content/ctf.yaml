@@ -13,3 +13,33 @@ events:
          description: "network-scan-001 laboratoriyasidagi eski serverda IRC xizmati qaysi portda? Flag: CLPE{port}", flag: "CLPE{6667}"}
       - {title: "Backdoor", category: pwn, difficulty: medium, points: 200, lab_slug: exploit-vsftpd-001,
          description: "vsftpd backdoor shell qaysi foydalanuvchi nomidan ishlaydi? Flag: CLPE{user}", flag: "CLPE{root}"}
+      - {title: "Ikki qavat", category: crypto, difficulty: easy, points: 75,
+         description: "UTB4UVJYdHNOSGt6Y2pWZk1HWmZZalJ6TTMwPQ== — bir marta dekodlash yetmaydi.", flag: "CLPE{l4y3r5_0f_b4s3}"}
+      - {title: "Hex", category: crypto, difficulty: easy, points: 50,
+         description: "434c50457b6833785f6433633064337d", flag: "CLPE{h3x_d3c0d3}"}
+      - {title: "Sezar", category: crypto, difficulty: easy, points: 75,
+         description: "FOSH{mxolxv_zdv_khuh} — Rim imperatori kalitni 3 deb tanlagan.", flag: "CLPE{julius_was_here}"}
+      - {title: "Ikkilik", category: crypto, difficulty: easy, points: 50,
+         description: "01000011 01001100 01010000 01000101 01111011 01100010 00110001 01101110 01111101", flag: "CLPE{b1n}"}
+      - {title: "XOR kaliti", category: crypto, difficulty: medium, points: 150,
+         description: "Hex: 69667a6f51521a58751b1f7558195c19581f1b48461957 — bir baytli XOR kaliti bilan shifrlangan. Flag formatini eslang.", flag: "CLPE{x0r_15_r3v3r51bl3}"}
+      - {title: "SHA-1", category: crypto, difficulty: medium, points: 100,
+         description: "b1b3773a05c0ed0176787a4f1574ff0075f7521e — mashhur parollar ro'yxatidan. Flag: CLPE{parol}", flag: "CLPE{qwerty}"}
+      - {title: "Ajdaho", category: crypto, difficulty: easy, points: 100,
+         description: "8621ffdbc5698829397d97767ac13db3 (MD5). Flag: CLPE{parol}", flag: "CLPE{dragon}"}
+      - {title: "DVWA bazasi", category: web, difficulty: medium, points: 150, lab_slug: web-dvwa-sqli-001,
+         description: "DVWA users jadvalida nechta foydalanuvchi bor? Flag: CLPE{son}", flag: "CLPE{5}"}
+      - {title: "Juice Shop admini", category: web, difficulty: medium, points: 200, lab_slug: web-juiceshop-sqli-001,
+         description: "Juice Shop administratorining email manzili. Flag: CLPE{email}", flag: "CLPE{admin@juice-sh.op}"}
+      - {title: "Samba", category: network, difficulty: medium, points: 150, lab_slug: network-enum-001,
+         description: "Metasploitable'dagi Samba smbd versiyasi (masalan 1.2.3). Flag: CLPE{versiya}", flag: "CLPE{3.0.20}"}
+      - {title: "MySQL", category: network, difficulty: easy, points: 100, lab_slug: network-enum-001,
+         description: "Eski serverdagi MySQL versiyasi (masalan 5.0.51a). Flag: CLPE{versiya}", flag: "CLPE{5.0.51a}"}
+      - {title: "Usermap", category: pwn, difficulty: hard, points: 300, lab_slug: exploit-samba-001,
+         description: "Samba usermap_script zaifligining CVE raqami. Flag: CLPE{CVE-YYYY-NNNN}", flag: "CLPE{CVE-2007-2447}"}
+      - {title: "IRC backdoor", category: pwn, difficulty: hard, points: 300, lab_slug: exploit-unrealircd-001,
+         description: "UnrealIRCd backdoor'ini ishga tushiruvchi buyruq prefiksi (3 ta belgi). Flag: CLPE{...}", flag: "CLPE{AB;}"}
+      - {title: "Log ovchisi", category: forensics, difficulty: easy, points: 100, lab_slug: blue-log-analysis-001,
+         description: "Web-shell orqali buyruq bajargan hujumchining IP manzili. Flag: CLPE{ip}", flag: "CLPE{10.200.0.5}"}
+      - {title: "Port 22", category: network, difficulty: easy, points: 50,
+         description: "SSH protokoli standart bo'yicha qaysi transport protokolida ishlaydi? Flag: CLPE{tcp yoki udp}", flag: "CLPE{tcp}"}

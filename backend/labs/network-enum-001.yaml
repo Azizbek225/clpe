@@ -1,0 +1,40 @@
+id: network-enum-001
+version: 1
+title: {uz: "Xizmatlarni sanab chiqish (enumeration)", ru: "Перечисление сервисов", en: "Service enumeration"}
+description:
+  uz: Eski serverdagi xizmatlar va ularning versiyalarini aniqlang — zaifliklarni topishning birinchi qadami.
+  en: Identify services and versions on a legacy host — the first step of vulnerability discovery.
+category: network-security
+course: networking-fundamentals
+lab_type: offensive
+difficulty: beginner
+duration_minutes: 75
+instructions:
+  uz: |
+    `nmap -sV -sC -p- <ip>` dan foydalaning. Topilgan versiyalarni `searchsploit` bilan solishtiring.
+machines:
+  - {name: attacker, template: kali-linux, role: attacker}
+  - {name: legacy, template: metasploitable2, role: target, hidden: true}
+networks: [{name: lab, type: isolated}]
+tasks:
+  - id: map
+    title: {uz: "Serverni xizmat versiyalari bilan xaritaga tushiring", en: "Map the host with service versions"}
+    points: 25
+    validation: {type: scan_coverage, require_services: true}
+  - id: smtp
+    title: {uz: "25-portdagi pochta serveri dasturi", en: "Mail server software on port 25"}
+    points: 15
+    validation: {type: answer, answers: ["Postfix", "postfix smtpd"]}
+  - id: samba
+    title: {uz: "Samba versiyasi", en: "Samba version"}
+    points: 20
+    validation: {type: answer, answers: ["3.0.20", "3.0.20-Debian"]}
+  - id: mysql
+    title: {uz: "MySQL versiyasi", en: "MySQL version"}
+    points: 20
+    validation: {type: answer, answers: ["5.0.51a", "5.0.51a-3ubuntu5"]}
+  - id: ports
+    title: {uz: "Barcha ochiq portlar", en: "All open ports"}
+    points: 20
+    validation: {type: port_discovery, machine: legacy, min_ratio: 0.9}
+scoring: {maximum: 100, passing: 60, xp: 150}

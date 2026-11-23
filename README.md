@@ -53,13 +53,13 @@ Linux uchun: `libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev`. 
 |---|---|
 | **Auth** | Argon2id, qisqa muddatli JWT + refresh token rotatsiyasi (qayta ishlatish aniqlansa butun sessiya bekor), audit |
 | **RBAC** | 8 rol (Super Admin, Org Admin, Instructor, Student, Lab Manager, Content Developer, Evaluator, Guest), 16 ruxsat |
-| **Ta'lim** | 16 yo'nalish katalogi; 4 tasi kontentli (Fundamentals, Networking, Web Security, Ethical Hacking), Markdown darslar, video, uz/ru/en tarjima, modul testlari, progress, avtomatik sertifikat + tekshirish kodi |
-| **Laboratoriyalar** | 6 ta YAML lab: tarmoq skanerlash, DVWA SQLi, Juice Shop razvedka, vsftpd backdoor ekspluatatsiyasi, DMZ/ichki tarmoq pivoting, Blue Team web-shell |
+| **Ta'lim** | 16 yo'nalish katalogi; 5 tasi kontentli (Fundamentals, Networking, Linux Security, Web Security, Ethical Hacking) — 47 dars, 69 test savoli, Markdown darslar, video, uz/ru/en tarjima, modul testlari, progress, avtomatik sertifikat + tekshirish kodi |
+| **Laboratoriyalar** | 18 ta YAML lab: skanerlash, enumeration, ko'p hostli razvedka, pivoting; DVWA (SQLi, XSS, CMDi, upload, LFI, bruteforce); Juice Shop (razvedka, SQLi login); vsftpd, Samba, UnrealIRCd ekspluatatsiyasi; SSH bruteforce; Blue Team (web-shell, log tahlili) |
 | **Lab Engine** | 8.2-bo'limdagi oqim (tarmoq → VM → snapshot → start → READY), xato bo'lsa to'liq rollback, navbat, kvota, muddat tugaganda avtomatik tozalash, snapshot/restore/reset |
 | **Skan va graf** | Hujumchi mashina ichida nmap (oq ro'yxat profillar), yoki talabaning `nmap -oX` natijasini import; topologiya grafigi "discovered" rejimda faqat topilgan hostlarni ochadi |
 | **Terminal** | Brauzerda xterm.js → WebSocket → lab konteyneri ichidagi shell (host'ga emas) |
 | **Baholash** | Validator plaginlari: `flag`, `answer`, `port_discovery`, `host_discovery`, `scan_coverage`, `vm_check`, `manual` |
-| **Gamification** | XP, level, global reyting, CTF (5 challenge, xeshlangan flaglar, leaderboard) |
+| **Gamification** | XP, level, global reyting, CTF (20 challenge, xeshlangan flaglar, leaderboard) |
 | **Admin** | Dashboard, kurs/modul/dars/test muharriri (live preview, tarjimalar), YAML paket import/eksport, YAML lab muharriri + validator, foydalanuvchi/rol, Lab Engine va VM shablonlari, audit jurnali, talabalar laboratoriyalarini kuzatish |
 
 ## Kengaytirish (kodni o'zgartirmasdan)
@@ -82,7 +82,7 @@ Linux uchun: `libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev`. 
 ## Testlar
 
 ```bash
-cd backend && pytest -q                                   # 22 test (SQLite yoki CLPE_DATABASE_URL=postgres…)
+cd backend && pytest -q                                   # 42 test (SQLite yoki CLPE_DATABASE_URL=postgres…)
 CLPE_E2E_ATTACKER_IMAGE=instrumentisto/nmap:latest \
   python scripts/e2e_docker.py                            # haqiqiy Docker: tarmoq, skan, terminal, tozalash
 cd ../web && npm run build                                 # TypeScript tekshiruvi + build
